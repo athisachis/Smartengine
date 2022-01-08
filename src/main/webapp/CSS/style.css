@@ -1,0 +1,76 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+header{
+    height: 20vh;
+    background-color: #353535;
+    display: flex;
+    justify-content: space-around;
+    font-size: 2em;
+}
+
+.logo{
+    height: 80%;
+}
+
+body{
+    background-color: teal;
+}
+
+.inputRegistro{
+    display: inline-block !important;
+}
+
+.errorMsg{
+    color: red !important; 
+}
+
+/* main{
+    display: flex;
+    flex-direction: column; 
+    height: 75vh;
+} */
+
+/* .elemento{
+    display: flex;
+    padding: 30px;
+    justify-content: space-around;
+    flex-direction: column;
+    margin: auto;
+    text-align: center;
+} */
+
+/* .button{
+    background: #576066;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    color: white;
+    font-size: 15px;
+    transition: .3s ease all;
+    margin-left: 10px;
+    margin-top: 40px; 
+}
+
+.button:hover {
+    background: lightblue;
+    color: black;
+    box-shadow: 3px 3px 50px rgba(0, 0, 0, .15);
+}
+
+.inputText{
+    width: 250px;
+    height: 25px;
+} */
+
+
+/* footer{
+    height: 5vh;
+    background-color: #353535;
+    display: flex;
+    justify-content: space-around;    
+    width: 100%;
+    color: white;
+} */

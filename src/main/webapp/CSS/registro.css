@@ -1,0 +1,12 @@
+.error {
+    background-color: lightcoral; 
+  }
+
+.exito {
+  background-color: darkseagreen; 
+}
+
+.error-text{
+  display: none;
+  color: lightcoral;
+}
