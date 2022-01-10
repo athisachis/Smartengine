@@ -81,6 +81,8 @@ public class ControladorPerfil extends HttpServlet {
         Usuario usuario = new Usuario();
         String tipoArchivo = null;
         String nombreArchivo = "default.png";
+        //Usuario que esta actualmente logueado
+        Usuario usuarioSesion = (Usuario) request.getSession().getAttribute("usuario");
 
         DAOFactory DAOFactory = null;
 
@@ -119,7 +121,7 @@ public class ControladorPerfil extends HttpServlet {
 
         if (!map.get("avatar").equals("")) {
 
-            int idAsignar = udao.ultimoIdUsuario() + 1;
+            int idAsignar = usuarioSesion.getIdUsuario();
 
             nombreArchivo = "avatarN" + idAsignar;
             String rutaAbsoluta = request.getServletContext().getRealPath("/");
@@ -145,7 +147,7 @@ public class ControladorPerfil extends HttpServlet {
                             
                         } else {
                             
-                            tipoArchivo = ".jpg";
+                            tipoArchivo = ".jpeg";
                             
                         }
 
@@ -173,12 +175,13 @@ public class ControladorPerfil extends HttpServlet {
             
             Date ultimoAcceso = Calendar.getInstance().getTime();
             usuario.setUltimoAcceso(ultimoAcceso);
-            if (map.get("avatar") != null) {
+            if (!map.get("avatar").equals("")) {
+                usuario.setAvatar(nombreArchivo);
+            }else{
                 usuario.setAvatar(nombreArchivo);
             }
             
-            //Le pongo el id del usuario que está guardado en sesión para poder modificar en la bbdd el usuario con ese id
-            Usuario usuarioSesion = (Usuario) request.getSession().getAttribute("usuario");
+            //Le pongo el id del usuario que está guardado en sesión para poder modificar en la bbdd el usuario con ese id            
             int idUsuario = usuarioSesion.getIdUsuario();
             
             usuario.setIdUsuario(idUsuario);

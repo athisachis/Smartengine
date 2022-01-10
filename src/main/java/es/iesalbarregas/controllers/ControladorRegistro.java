@@ -108,7 +108,7 @@ public class ControladorRegistro extends HttpServlet {
                             
                         } else {
                             
-                            tipoArchivo = ".jpg";
+                            tipoArchivo = ".jpeg";
                             
                         }
 
@@ -136,7 +136,7 @@ public class ControladorRegistro extends HttpServlet {
             
             Date ultimoAcceso = Calendar.getInstance().getTime();
             usuario.setUltimoAcceso(ultimoAcceso);
-            if (map.get("avatar").equals("")) {
+            if (!map.get("avatar").equals("")) {
                 usuario.setAvatar(nombreArchivo);
             }
         } catch (IllegalAccessException ex) {
@@ -150,12 +150,13 @@ public class ControladorRegistro extends HttpServlet {
         
         
         check = udao.crearUsuario(usuario);
-                
+        
+        Usuario usuarioCreado = udao.getUsuarioEmail(usuario.getEmail());
         
 
         if (check) {
 
-            request.getSession().setAttribute("usuario", usuario);
+            request.getSession().setAttribute("usuario", usuarioCreado);
             request.getRequestDispatcher("JSP/Tienda.jsp").forward(request, response);
         } else {
             String error = "error";

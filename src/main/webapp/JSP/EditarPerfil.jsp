@@ -116,7 +116,7 @@
                                 <input type="text" class="form-control" placeholder="Provincia" name="provincia" maxlength="30" value="${provincia}"/>
                             </div>
                             <div class="form-group" >
-                                <input type="file" class="form-control" placeholder="Avatar" name="avatar"/>
+                                <input type="file" class="form-control" placeholder="Avatar" name="avatar" accept="image/png, image/jpeg"/>
                             </div>
 
 
