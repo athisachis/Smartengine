@@ -10,6 +10,20 @@
         </session-timeout>
     </session-config>
     
+    <filter>
+        <filter-name>UTF8Filter</filter-name>
+        <filter-class>es.iesalbarregas.filters.UTF8Filter</filter-class>
+        <init-param>
+            <param-name>requestEncodig</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+    </filter>
+    
+    <filter-mapping>
+        <filter-name>UTF8Filter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    
     <welcome-file-list>
         <welcome-file>Login.jsp</welcome-file>
     </welcome-file-list>

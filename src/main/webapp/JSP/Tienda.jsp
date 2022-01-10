@@ -6,37 +6,37 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.88.1">
-    <title>Album example · Bootstrap v4.6</title>
+  <html lang="en">
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <meta name="description" content="">
+      <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+      <meta name="generator" content="Hugo 0.88.1">
+      <title>SmartEngine</title>
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/4.6/examples/album/">
+      <link rel="canonical" href="https://getbootstrap.com/docs/4.6/examples/album/">
 
-    
+      
 
-    <!-- Bootstrap core CSS -->
-<link href="/docs/4.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+      <!-- Bootstrap core CSS -->
+  <link href="/docs/4.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 
-<!-- FRAMEWORK BOOTSTRAP para el estilo de la pagina-->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <!-- FRAMEWORK BOOTSTRAP para el estilo de la pagina-->
+          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
 
-    <!-- Favicons -->
-<link rel="apple-touch-icon" href="/docs/4.6/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
-<link rel="icon" href="/docs/4.6/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
-<link rel="icon" href="/docs/4.6/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
-<link rel="manifest" href="/docs/4.6/assets/img/favicons/manifest.json">
-<link rel="mask-icon" href="/docs/4.6/assets/img/favicons/safari-pinned-tab.svg" color="#563d7c">
-<link rel="icon" href="/docs/4.6/assets/img/favicons/favicon.ico">
-<meta name="msapplication-config" content="/docs/4.6/assets/img/favicons/browserconfig.xml">
-<meta name="theme-color" content="#563d7c">
-<%@include file="../INC/metas.inc" %>
+      <!-- Favicons -->
+  <link rel="apple-touch-icon" href="/docs/4.6/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+  <link rel="icon" href="/docs/4.6/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="/docs/4.6/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+  <link rel="manifest" href="/docs/4.6/assets/img/favicons/manifest.json">
+  <link rel="mask-icon" href="/docs/4.6/assets/img/favicons/safari-pinned-tab.svg" color="#563d7c">
+  <link rel="icon" href="/docs/4.6/assets/img/favicons/favicon.ico">
+  <meta name="msapplication-config" content="/docs/4.6/assets/img/favicons/browserconfig.xml">
+  <meta name="theme-color" content="#563d7c">
+  <%@include file="../INC/metas.inc" %>
 
 
     <style>
@@ -88,9 +88,9 @@
             <a class="nav-link" href="#">Contacto<span class="sr-only">(current)</span></a>
           </li>
         </ul> -->
-        <a href="#"> <img src="<%= request.getContextPath()%>/IMG/carrito.png" alt="carrito" class="btn_login"></a>
-        <a href="#"><img src="<%= request.getContextPath()%>/IMG/user.png" alt="usuario" class="btn_login"></a>
-        <a href="#"><img src="<%= request.getContextPath()%>/IMG/exit.png" alt="salir" class="btn_login"></a>
+        <a href="#"> <img src="<%= request.getContextPath()%>/IMG/carrito.png" alt="carrito" class=" btn btn_login"></a>
+        <a href="<%= request.getContextPath()%>/ControladorPerfil"><img src="<%= request.getContextPath()%>/IMG/user.png" alt="usuario" class="btn btn_login"></a>
+        <a href="#"><img src="<%= request.getContextPath()%>/IMG/exit.png" alt="salir" class="btn btn_login"></a>
       </div>
     </nav>
   </div>

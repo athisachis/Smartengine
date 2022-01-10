@@ -314,6 +314,26 @@ function comprobarCampos(e) {
         }
     }
 
+    if (e.target.name=="direccion") {
+        
+        if (e.target.value!="") {
+            if ((e.target.classList.contains('error'))) {
+                e.target.classList.remove("error");
+            }
+
+            if (!e.target.classList.contains('exito')) {
+                e.target.classList += ' exito';
+            }
+        }else{
+            if ((e.target.classList.contains('exito'))) {
+                e.target.classList.remove("exito");
+            }
+
+            if (!e.target.classList.contains('error')) {
+                e.target.classList += ' error';
+            }
+        }
+    }
 
 }
 
@@ -349,7 +369,7 @@ function cpValido(codPostal) {
 /* COMPRUEBA QUE SOLO SE INTRODUZCAN LETRAS */
 function soloLetras(palabra) {
 
-    return /^[A-Za-z\s]+$/g.test(palabra);
+    return /^[A-Za-zÁÉÍÓÚáéíóúñÑ ]+$/g.test(palabra);
 }
 
 function calcularDNI(dni) {

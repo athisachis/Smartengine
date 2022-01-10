@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package es.iesalbarregas.controllers;
 
 import es.iesalbarregas.DAO.MySQLUsuariosDAO;
@@ -5,6 +10,7 @@ import es.iesalbarregas.DAOFactory.DAOFactory;
 import es.iesalbarregas.beans.Usuario;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Calendar;
 import java.util.Date;
@@ -26,21 +32,52 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 /**
  *
- * @author Ana
+ * @author error
  */
-@WebServlet(name = "ControladorRegistro", urlPatterns = {"/ControladorRegistro"})
-public class ControladorRegistro extends HttpServlet {
+@WebServlet(name = "ControladorPerfil", urlPatterns = {"/ControladorPerfil"})
+public class ControladorPerfil extends HttpServlet {
 
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        
+        if (request.getSession().getAttribute("usuario")!=null) {
+            request.getRequestDispatcher("JSP/EditarPerfil.jsp").forward(request, response);
+        }else{
+            request.getRequestDispatcher("Login.jsp").forward(request, response);
+        }
+        
+        
+    }
+
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        processRequest(request, response);
     }
+
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
         Usuario usuario = new Usuario();
         String tipoArchivo = null;
         String nombreArchivo = "default.png";
@@ -136,9 +173,16 @@ public class ControladorRegistro extends HttpServlet {
             
             Date ultimoAcceso = Calendar.getInstance().getTime();
             usuario.setUltimoAcceso(ultimoAcceso);
-            if (map.get("avatar").equals("")) {
+            if (map.get("avatar") != null) {
                 usuario.setAvatar(nombreArchivo);
             }
+            
+            //Le pongo el id del usuario que está guardado en sesión para poder modificar en la bbdd el usuario con ese id
+            Usuario usuarioSesion = (Usuario) request.getSession().getAttribute("usuario");
+            int idUsuario = usuarioSesion.getIdUsuario();
+            
+            usuario.setIdUsuario(idUsuario);
+            
         } catch (IllegalAccessException ex) {
             Logger.getLogger(ControladorRegistro.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InvocationTargetException ex) {
@@ -149,9 +193,7 @@ public class ControladorRegistro extends HttpServlet {
         boolean check;
         
         
-        check = udao.crearUsuario(usuario);
-                
-        
+        check = udao.updateUsuario(usuario);
 
         if (check) {
 
@@ -161,9 +203,14 @@ public class ControladorRegistro extends HttpServlet {
             String error = "error";
             request.setAttribute(error, error);
         }
-
+        
     }
 
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
     @Override
     public String getServletInfo() {
         return "Short description";

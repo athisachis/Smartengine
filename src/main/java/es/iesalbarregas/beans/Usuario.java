@@ -1,12 +1,15 @@
 package es.iesalbarregas.beans;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Objeto usuario que almacena los datos de usuario
  * @author Ana
  */
 public class Usuario implements Serializable{
+    
+    private int idUsuario;
     
     private String email;
     private String contrasenia;
@@ -20,6 +23,7 @@ public class Usuario implements Serializable{
     private String localidad;
     private String provincia;
     private String avatar;
+    private Date ultimoAcceso;
 
     public String getEmail() {
         return email;
@@ -108,6 +112,23 @@ public class Usuario implements Serializable{
     public void setAvatar(String avatar) {
         this.avatar = avatar;
     }
+
+    public Date getUltimoAcceso() {
+        return ultimoAcceso;
+    }
+
+    public void setUltimoAcceso(Date ultimoAcceso) {
+        this.ultimoAcceso = ultimoAcceso;
+    }
+
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+    
     
     
     

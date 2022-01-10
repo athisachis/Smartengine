@@ -42,7 +42,8 @@ public class MySQLUsuariosDAO implements IUsuariosDAO{
                     
                 
                     Usuario usuario = new Usuario();
-
+                    
+                    usuario.setIdUsuario(resultado.getInt("idUsuario"));
                     usuario.setEmail(resultado.getString("email"));
                     usuario.setContrasenia(resultado.getString("password"));
                     usuario.setNombre(resultado.getString("nombre"));
@@ -185,6 +186,65 @@ public class MySQLUsuariosDAO implements IUsuariosDAO{
         
        
         
+        
+    }
+    
+    /**
+     *
+     * @param usuario
+     * @return check true si se ha modificado el usuario correctamente, de lo contrario dará false
+     */
+    @Override
+    public boolean updateUsuario(Usuario usuario){
+        
+        boolean check = false;
+        
+        String consulta = "update usuarios SET email=?, password=?, nombre=?, apellidos=?, nif=?, telefono=?, direccion=?, codigoPostal=?, localidad=?, provincia=?, avatar=? WHERE idUsuario=?;";
+
+        
+        try {
+            
+            PreparedStatement preparada = ConnectionFactory.abrirConexion().prepareStatement(consulta);
+            
+            preparada.setString(1, usuario.getEmail());
+            preparada.setString(2, usuario.getContrasenia());
+            preparada.setString(3, usuario.getNombre());
+            preparada.setString(4, usuario.getApellidos());
+            preparada.setString(5, usuario.getNif());
+            preparada.setString(6, usuario.getTelefono());
+            preparada.setString(7, usuario.getDireccion());
+            preparada.setString(8, usuario.getCodPostal());
+            preparada.setString(9, usuario.getLocalidad());
+            preparada.setString(10, usuario.getProvincia());
+            
+            
+            String avatar;
+            if (usuario.getAvatar()==null) {
+                avatar="default.png";
+            }else{
+                avatar=usuario.getAvatar();
+            }
+            
+            preparada.setInt(12, usuario.getIdUsuario());
+            
+            preparada.setString(11, avatar);
+            
+            preparada.executeUpdate();            
+                
+            preparada.close();
+            
+
+            check=true;
+            
+        } catch (SQLException e) {
+            System.out.println("Problema con la base de datos");
+            
+        }finally{
+            this.closeConnection();
+            
+        }                
+        
+        return check;
         
     }
     

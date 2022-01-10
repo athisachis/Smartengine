@@ -1,17 +1,18 @@
 <%-- 
-    Document   : Registro
-    Created on : 26-dic-2021, 18:39:12
-    Author     : Ana
+    Document   : EditarPerfil
+    Created on : 10-ene-2022, 12:33:30
+    Author     : error
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <%@include file="../INC/metas.inc" %>
         <link rel="stylesheet" type="text/css" href="<%= request.getContextPath()%>/CSS/style.css" media="screen" />
-        <title>Registro</title>
+        <title>Editar perfil</title>
         <!--JQUERY-->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         
@@ -34,6 +35,8 @@
       <%@include file="../INC/header.inc" %>
 
       <main>
+          
+          <c:set var="usuario" value='${sessionScope.usuario}' />
 
         <div class="container col-12">
 
@@ -41,47 +44,76 @@
                 <div class="col-sm-8 main-section">
                     <div class="modal-content bg-dark col-12">
                         <div class="col-12 user-img">
-                            <img src="<%= request.getContextPath()%>/IMG/registro.png"/>
+                            
+                            <c:set var="avatar" value='${sessionScope.usuario.avatar}' />
+
+                            <img src="<%= request.getContextPath()%>/IMG/avatares/${avatar}"/>
                         </div>
-                        <form class="col-12"  action="../ControladorRegistro" method="post" id="user-form" enctype='multipart/form-data'>
+                        <form class="col-12"  action="ControladorPerfil" method="post" id="user-form" enctype='multipart/form-data'>
                             <div class="form-group" id="user-group">
-                                <input type="email" class="form-control inputRegistro" placeholder="Email" name="email" id="email" maxlength="50"/>
+                                <c:set var="email" value='${sessionScope.usuario.email}' />
+                                <input type="email" class="form-control inputRegistro" placeholder="Email" name="email" id="email" maxlength="50" value=" ${email} "/>
                                 <small class="error-text" id="errorMail">El formato del email es incorrecto</small>
                                 <small class="error-text" id="errorMailExiste">Este email ya está registrado</small>
                             </div>
                             <div class="form-group" id="contrasena-group">
-                                <input type="password" class="form-control inputRegistro" placeholder="Contraseña" name="contrasenia" id="contrasenia" maxlength="30"/>
+                                
+                                <c:set var="contrasenia" value='${sessionScope.usuario.contrasenia}' />
+                                
+                                <input type="password" class="form-control inputRegistro" placeholder="Contraseña" name="contrasenia" id="contrasenia" maxlength="30" value="${contrasenia}"/>
                             </div>
                             <div class="form-group" id="contrasena-group">
-                                <input type="password" class="form-control inputRegistro" placeholder=" Repetir contraseña" name="contrasenia2" id="contrasenia2" maxlength="30"/>
+                                <input type="password" class="form-control inputRegistro" placeholder=" Repetir contraseña" name="contrasenia2" id="contrasenia2" maxlength="30" value="${contrasenia}" />
                                 <small class="error-text" id="errorContrasenia">Las contraseñas deben coincidir</small>
                             </div>
                             <div class="form-group" >
-                                <input type="text" class="form-control inputRegistro" placeholder="Nombre" name="nombre" maxlength="20"/>
+                                
+                                <c:set var="nombre" value='${sessionScope.usuario.nombre}' />
+                                
+                                <input type="text" class="form-control inputRegistro" placeholder="Nombre" name="nombre" maxlength="20" value="${nombre}"/>
                             </div>
                             <div class="form-group" >
-                                <input type="text" class="form-control" placeholder="Apellidos" name="apellidos" maxlength="30"/>
+                                <c:set var="apellidos" value='${sessionScope.usuario.apellidos}' />
+                                
+                                <input type="text" class="form-control" placeholder="Apellidos" name="apellidos" maxlength="30" value="${apellidos}"/>
                             </div>
                             <div class="form-group" >
-                                <input type="text" class="form-control" placeholder="NIF (sin letra)" name="nif" maxlength="9"/>
+                                
+                                <c:set var="nif" value='${sessionScope.usuario.nif}' />
+                                
+                                <input type="text" class="form-control" placeholder="NIF (sin letra)" name="nif" maxlength="9" value="${nif}"/>
                                 <small class="error-text" id="errorNif">Se deben introducir 8 números sin la letra</small>
                             </div>
                             <div class="form-group" >
-                                <input type="tel" class="form-control" placeholder="Teléfono" name="telefono" maxlength="9"/>
+                                
+                                <c:set var="telefono" value='${sessionScope.usuario.telefono}' />
+                                
+                                <input type="tel" class="form-control" placeholder="Teléfono" name="telefono" maxlength="9" value="${telefono}"/>
                                 <small class="error-text" id="errorTlf">Número de teléfono no válido</small>
                             </div>
                             <div class="form-group" >
-                                <input type="text" class="form-control" placeholder="Dirección" name="direccion" maxlength="40"/>
+                                <c:set var="direccion" value='${sessionScope.usuario.direccion}' />
+                                
+                                <input type="text" class="form-control" placeholder="Dirección" name="direccion" maxlength="40" value="${direccion}"/>
                             </div>
                             <div class="form-group" >
-                                <input type="text" class="form-control" placeholder="Código postal" name="codPostal" maxlength="30" maxlength="5"/>
+                                
+                                <c:set var="codPostal" value='${sessionScope.usuario.codPostal}' />
+                                
+                                <input type="text" class="form-control" placeholder="Código postal" name="codPostal" maxlength="30" maxlength="5" value="${codPostal}"/>
                                 <small class="error-text" id="errorCP">Código postal no válido</small>
                             </div>
                             <div class="form-group" >
-                                <input type="text" class="form-control" placeholder="Localidad" name="localidad" maxlength="40"/>
+                                
+                                <c:set var="localidad" value='${sessionScope.usuario.localidad}' />
+                                
+                                <input type="text" class="form-control" placeholder="Localidad" name="localidad" maxlength="40" value="${localidad}"/>
                             </div>
                             <div class="form-group" >
-                                <input type="text" class="form-control" placeholder="Provincia" name="provincia" maxlength="30"/>
+                                
+                                <c:set var="provincia" value='${sessionScope.usuario.provincia}' />
+                                
+                                <input type="text" class="form-control" placeholder="Provincia" name="provincia" maxlength="30" value="${provincia}"/>
                             </div>
                             <div class="form-group" >
                                 <input type="file" class="form-control" placeholder="Avatar" name="avatar"/>
@@ -89,10 +121,10 @@
 
 
 
-                            <button type="submit" class="btn btn-light boton" name="boton" id="botonRegistro"><i class="fas fa-sign-in-alt"></i>  Registrarse </button>
+                            <button type="submit" class="btn btn-light boton" name="boton" id="botonRegistro"><i class="fas fa-sign-in-alt"></i>  Modificar datos </button>
                         </form>
                         <div class="col-12 forgot">
-                            <a href="<%= request.getContextPath()%>/Login.jsp">Volver a login</a>
+                            <a href="<%= request.getContextPath()%>/JSP/Tienda.jsp">Volver a la tienda</a>
                             
                         </div>
 

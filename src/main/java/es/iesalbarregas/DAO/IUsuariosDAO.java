@@ -36,6 +36,8 @@ public interface IUsuariosDAO {
      */
     public int ultimoIdUsuario();
     
+    public boolean updateUsuario(Usuario usuario);
+    
     /**
      * cierra la conexion
      */

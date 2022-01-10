@@ -21,6 +21,8 @@ public abstract class DAOFactory {
     
     public abstract IUsuariosDAO ultimoIdUsuario();
     
+    public abstract IUsuariosDAO updateUsuario(Usuario usuario);
+    
     public abstract IProductosDAO getProductos();
     
      public abstract IProductosDAO getProductosCategoria(Categoria categoria);

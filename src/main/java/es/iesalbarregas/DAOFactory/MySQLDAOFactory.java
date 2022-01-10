@@ -52,6 +52,15 @@ public class MySQLDAOFactory extends DAOFactory{
         return new MySQLUsuariosDAO();
     }
     
+    /**
+     *
+     * @return true si se ha actualizado correctamente el usuario
+     */
+    @Override
+    public IUsuariosDAO updateUsuario(Usuario usuario) {
+        return new MySQLUsuariosDAO();
+    }
+    
     @Override
     public IProductosDAO getProductos() {
         return new MySQLProductosDAO();    
