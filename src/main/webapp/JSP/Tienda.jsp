@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!doctype html>
   <html lang="en">
     <head>
@@ -65,11 +66,19 @@
     
 <header>
 
-  <div class="row">
+  <!-- <div class="row">
     <%@include file="../INC/header.inc" %>
-  </div>
-
-  <div class="row">
+  </div> -->
+    
+    <c:if test="${sessionScope.usuario!=null}">
+        <%@include file="../INC/headerRegistrado.inc" %>                
+    </c:if>
+    
+    <c:if test="${sessionScope.usuario==null}">
+        <%@include file="../INC/headerAnonimo.inc" %>                
+    </c:if>
+    
+  <!-- <div class="row">
 
     <nav class="navbar navbar-expand-md navbar-dark">
         
@@ -77,26 +86,16 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarCollapse">
-        <!-- ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Inicio <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Categorías<span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Contacto<span class="sr-only">(current)</span></a>
-          </li>
-        </ul> -->
+
         <a href="#"> <img src="<%= request.getContextPath()%>/IMG/carrito.png" alt="carrito" class=" btn btn_login"></a>
         <a href="<%= request.getContextPath()%>/ControladorPerfil"><img src="<%= request.getContextPath()%>/IMG/user.png" alt="usuario" class="btn btn_login"></a>
-        <a href="#"><img src="<%= request.getContextPath()%>/IMG/exit.png" alt="salir" class="btn btn_login"></a>
+        <a href="<%= request.getContextPath()%>/ControladorCerrarSesion"><img src="<%= request.getContextPath()%>/IMG/exit.png" alt="salir" class="btn btn_login"></a>
       </div>
     </nav>
-  </div>
+  </div> -->
       
       
-    </header>
+</header>
 
 <main role="main">
 

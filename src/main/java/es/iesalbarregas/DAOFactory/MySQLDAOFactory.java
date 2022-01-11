@@ -1,7 +1,9 @@
 package es.iesalbarregas.DAOFactory;
 
+import es.iesalbarregas.DAO.ICategoriasDAO;
 import es.iesalbarregas.DAO.IProductosDAO;
 import es.iesalbarregas.DAO.IUsuariosDAO;
+import es.iesalbarregas.DAO.MySQLCategoriasDAO;
 import es.iesalbarregas.DAO.MySQLProductosDAO;
 import es.iesalbarregas.DAO.MySQLUsuariosDAO;
 import es.iesalbarregas.beans.Categoria;
@@ -70,6 +72,10 @@ public class MySQLDAOFactory extends DAOFactory{
     public IProductosDAO getProductosCategoria(Categoria categoria) {
         return new MySQLProductosDAO();
     }
-    
+   
+    @Override
+    public ICategoriasDAO getCategorias() {
+        return new MySQLCategoriasDAO();
+    }
     
 }

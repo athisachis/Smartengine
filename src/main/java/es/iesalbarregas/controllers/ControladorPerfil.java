@@ -131,6 +131,7 @@ public class ControladorPerfil extends HttpServlet {
 
             //tamaño máximo de imagen que se puede subir
             upload.setSizeMax(1024 * 512);
+            
 
             Iterator<FileItem> it = parametros.iterator();
             while (it.hasNext()) {

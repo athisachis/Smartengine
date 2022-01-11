@@ -52,7 +52,7 @@
                         <form class="col-12"  action="ControladorPerfil" method="post" id="user-form" enctype='multipart/form-data'>
                             <div class="form-group" id="user-group">
                                 <c:set var="email" value='${sessionScope.usuario.email}' />
-                                <input type="email" class="form-control inputRegistro" placeholder="Email" name="email" id="email" maxlength="50" value=" ${email} "/>
+                                <input type="email" class="form-control inputRegistro" placeholder="Email" name="email" id="email" maxlength="50" value=" ${email} " readonly/>
                                 <small class="error-text" id="errorMail">El formato del email es incorrecto</small>
                                 <small class="error-text" id="errorMailExiste">Este email ya está registrado</small>
                             </div>
@@ -60,60 +60,60 @@
                                 
                                 <c:set var="contrasenia" value='${sessionScope.usuario.contrasenia}' />
                                 
-                                <input type="password" class="form-control inputRegistro" placeholder="Contraseña" name="contrasenia" id="contrasenia" maxlength="30" value="${contrasenia}"/>
+                                <input type="password" class="form-control inputRegistro" placeholder="Contraseña" name="contrasenia" id="contrasenia" maxlength="30" value="${contrasenia}" required/>
                             </div>
                             <div class="form-group" id="contrasena-group">
-                                <input type="password" class="form-control inputRegistro" placeholder=" Repetir contraseña" name="contrasenia2" id="contrasenia2" maxlength="30" value="${contrasenia}" />
+                                <input type="password" class="form-control inputRegistro" placeholder=" Repetir contraseña" name="contrasenia2" id="contrasenia2" maxlength="30" value="${contrasenia}" required/>
                                 <small class="error-text" id="errorContrasenia">Las contraseñas deben coincidir</small>
                             </div>
                             <div class="form-group" >
                                 
                                 <c:set var="nombre" value='${sessionScope.usuario.nombre}' />
                                 
-                                <input type="text" class="form-control inputRegistro" placeholder="Nombre" name="nombre" maxlength="20" value="${nombre}"/>
+                                <input type="text" class="form-control inputRegistro" placeholder="Nombre" name="nombre" maxlength="20" value="${nombre}" required/>
                             </div>
                             <div class="form-group" >
                                 <c:set var="apellidos" value='${sessionScope.usuario.apellidos}' />
                                 
-                                <input type="text" class="form-control" placeholder="Apellidos" name="apellidos" maxlength="30" value="${apellidos}"/>
+                                <input type="text" class="form-control" placeholder="Apellidos" name="apellidos" maxlength="30" value="${apellidos}" required/>
                             </div>
                             <div class="form-group" >
                                 
                                 <c:set var="nif" value='${sessionScope.usuario.nif}' />
                                 
-                                <input type="text" class="form-control" placeholder="NIF (sin letra)" name="nif" maxlength="9" value="${nif}"/>
+                                <input type="text" class="form-control" placeholder="NIF (sin letra)" name="nif" maxlength="9" value="${nif}" readonly/>
                                 <small class="error-text" id="errorNif">Se deben introducir 8 números sin la letra</small>
                             </div>
                             <div class="form-group" >
                                 
                                 <c:set var="telefono" value='${sessionScope.usuario.telefono}' />
                                 
-                                <input type="tel" class="form-control" placeholder="Teléfono" name="telefono" maxlength="9" value="${telefono}"/>
+                                <input type="tel" class="form-control" placeholder="Teléfono" name="telefono" maxlength="9" value="${telefono}" required/>
                                 <small class="error-text" id="errorTlf">Número de teléfono no válido</small>
                             </div>
                             <div class="form-group" >
                                 <c:set var="direccion" value='${sessionScope.usuario.direccion}' />
                                 
-                                <input type="text" class="form-control" placeholder="Dirección" name="direccion" maxlength="40" value="${direccion}"/>
+                                <input type="text" class="form-control" placeholder="Dirección" name="direccion" maxlength="40" value="${direccion}" required/>
                             </div>
                             <div class="form-group" >
                                 
                                 <c:set var="codPostal" value='${sessionScope.usuario.codPostal}' />
                                 
-                                <input type="text" class="form-control" placeholder="Código postal" name="codPostal" maxlength="30" maxlength="5" value="${codPostal}"/>
+                                <input type="text" class="form-control" placeholder="Código postal" name="codPostal" maxlength="30" maxlength="5" value="${codPostal}" required/>
                                 <small class="error-text" id="errorCP">Código postal no válido</small>
                             </div>
                             <div class="form-group" >
                                 
                                 <c:set var="localidad" value='${sessionScope.usuario.localidad}' />
                                 
-                                <input type="text" class="form-control" placeholder="Localidad" name="localidad" maxlength="40" value="${localidad}"/>
+                                <input type="text" class="form-control" placeholder="Localidad" name="localidad" maxlength="40" value="${localidad}" required/>
                             </div>
                             <div class="form-group" >
                                 
                                 <c:set var="provincia" value='${sessionScope.usuario.provincia}' />
                                 
-                                <input type="text" class="form-control" placeholder="Provincia" name="provincia" maxlength="30" value="${provincia}"/>
+                                <input type="text" class="form-control" placeholder="Provincia" name="provincia" maxlength="30" value="${provincia}" required/>
                             </div>
                             <div class="form-group" >
                                 <input type="file" class="form-control" placeholder="Avatar" name="avatar" accept="image/png, image/jpeg"/>

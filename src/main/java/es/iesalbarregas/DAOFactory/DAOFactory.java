@@ -1,9 +1,11 @@
 package es.iesalbarregas.DAOFactory;
 
+import es.iesalbarregas.DAO.ICategoriasDAO;
 import es.iesalbarregas.DAO.IProductosDAO;
 import es.iesalbarregas.DAO.IUsuariosDAO;
 import es.iesalbarregas.beans.Categoria;
 import es.iesalbarregas.beans.Usuario;
+import java.util.ArrayList;
 
 /**
  *
@@ -25,7 +27,9 @@ public abstract class DAOFactory {
     
     public abstract IProductosDAO getProductos();
     
-     public abstract IProductosDAO getProductosCategoria(Categoria categoria);
+    public abstract IProductosDAO getProductosCategoria(Categoria categoria);
+    
+    public abstract ICategoriasDAO getCategorias();
     
     public static DAOFactory getDAOFactory(int tipoBBDD) {
         

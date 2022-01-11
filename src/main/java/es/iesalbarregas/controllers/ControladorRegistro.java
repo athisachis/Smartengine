@@ -153,6 +153,20 @@ public class ControladorRegistro extends HttpServlet {
         
         Usuario usuarioCreado = udao.getUsuarioEmail(usuario.getEmail());
         
+        //Para que el id se ponga correctamente con el nombre de usuario
+        if (!map.get("avatar").equals("")) {
+            
+                int idUsuario = usuarioCreado.getIdUsuario();
+                nombreArchivo="avatarN"+idUsuario+tipoArchivo;
+                
+                usuarioCreado.setAvatar(nombreArchivo);
+                
+                check = udao.updateUsuario(usuarioCreado);
+            }
+       
+        
+        
+        
 
         if (check) {
 
