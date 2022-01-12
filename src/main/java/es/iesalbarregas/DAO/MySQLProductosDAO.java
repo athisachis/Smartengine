@@ -94,6 +94,41 @@ public class MySQLProductosDAO implements IProductosDAO {
     }
 
     @Override
+    public Producto getProductoMasVendido() {
+
+        Producto masVendido = new Producto();
+
+        String consulta = "SELECT * FROM Productos WHERE idProducto= (select idProducto from lineaspedidos group by idProducto order by sum(cantidad) desc limit 1); ";
+
+        try {
+            Statement sentencia = ConnectionFactory.abrirConexion().createStatement();
+            try {
+                ResultSet resultado = sentencia.executeQuery(consulta);
+
+                while (resultado.next()) {
+
+                    masVendido.setIdProducto(resultado.getInt("IdProducto"));
+                    masVendido.setIdCategoria(resultado.getInt("IdCategoria"));
+                    masVendido.setNombre(resultado.getString("Nombre"));
+                    masVendido.setDescripcion(resultado.getString("Descripcion"));
+                    masVendido.setPrecio(resultado.getDouble("Precio"));
+                    masVendido.setMarca(resultado.getString("Marca"));
+                    masVendido.setImagen(resultado.getString("Imagen"));
+
+                }
+            } catch (SQLException e) {
+                System.out.println("Error al ejecutar la sentencia");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al abrir conexion con la BBDD");
+        } finally {
+            this.closeConnection();
+        }
+        return masVendido;
+
+    }
+
+    @Override
     public void closeConnection() {
         ConnectionFactory.cerrarConexion();
     }

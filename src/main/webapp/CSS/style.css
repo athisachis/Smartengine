@@ -26,6 +26,28 @@ body{
     color: red !important; 
 }
 
+.botonesNavbar{
+    height: 50px;
+    
+}
+
+.barraHerramientas{
+    background-color: #353535 !important;
+}
+
+/* .contenedorCards{
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+} */
+
+.card{
+    margin-bottom: 10px;
+}
+
+#formCategoria{
+    visibility: hidden;
+}
 /* main{
     display: flex;
     flex-direction: column; 

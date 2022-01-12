@@ -18,9 +18,16 @@ public interface IProductosDAO {
     
     /**
      *
+     * @param categoria
      * @return todos los artículos de la bbdd que tengan esa categoria
      */
     public ArrayList<Producto> getProductosCategoria(Categoria categoria);
+    
+    /**
+     *
+     * @return objeto Producto del producto que más se ha vendido
+     */
+    public Producto getProductoMasVendido();
     
     /**
      * cierra la conexion

@@ -60,8 +60,7 @@ public class ControladorLogin extends HttpServlet {
                     request.setAttribute("error", error);
                     request.getRequestDispatcher("Login.jsp").forward(request, response); 
                 }
-            }
-            
+            }            
           
         }
 

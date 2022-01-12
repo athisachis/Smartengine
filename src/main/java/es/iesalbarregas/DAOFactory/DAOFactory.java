@@ -29,6 +29,8 @@ public abstract class DAOFactory {
     
     public abstract IProductosDAO getProductosCategoria(Categoria categoria);
     
+    public abstract IProductosDAO getProductoMasVendido();
+    
     public abstract ICategoriasDAO getCategorias();
     
     public static DAOFactory getDAOFactory(int tipoBBDD) {

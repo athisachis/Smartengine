@@ -72,6 +72,15 @@ public class MySQLDAOFactory extends DAOFactory{
     public IProductosDAO getProductosCategoria(Categoria categoria) {
         return new MySQLProductosDAO();
     }
+    
+    /**
+     *
+     * @return idProducto del producto más vendido
+     */
+    @Override
+    public IProductosDAO getProductoMasVendido() {
+        return new MySQLProductosDAO();
+    }
    
     @Override
     public ICategoriasDAO getCategorias() {
