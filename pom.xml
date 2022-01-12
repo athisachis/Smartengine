@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>es.iesalbarregas</groupId>
-    <artifactId>smartengine</artifactId>
+    <artifactId>Smartengine</artifactId>
     <version>1.0</version>
     <packaging>war</packaging>
 
-    <name>smartengine</name>
+    <name>Smartengine</name>
 
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>

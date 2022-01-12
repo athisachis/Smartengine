@@ -43,6 +43,11 @@ body{
 
 .card{
     margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.dropdown-item{
+    cursor: pointer;
 }
 
 #formCategoria{
