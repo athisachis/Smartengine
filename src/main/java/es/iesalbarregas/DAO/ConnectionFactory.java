@@ -24,7 +24,7 @@ public class ConnectionFactory {
             Context initialContext = new InitialContext();
             dataSource =
             (DataSource)initialContext.lookup
-            ("java:comp/env/jdbc/TiendaOnline");
+            ("java:comp/env/jdbc/smartengine");
             conexion=dataSource.getConnection();
         } catch(NamingException e) {
             System.out.println("Error al acceder al recurso especificado");
