@@ -24,14 +24,14 @@
 
 
             <!-- Si el usuario está registrado -->
-            <!-- <c:if test="${sessionScope.usuario!=null}">
+            <c:if test="${sessionScope.usuario!=null}">
                 <%@include file="../INC/headerRegistrado.inc" %>                
-            </c:if> -->
+            </c:if>
 
             <!-- Si el usuario no está registrado -->
-            <!-- <c:if test="${sessionScope.usuario==null}">
+             <c:if test="${sessionScope.usuario==null}">
                 <%@include file="../INC/headerAnonimo.inc" %>                
-            </c:if> -->   
+            </c:if>    
                 
 
         </header>
@@ -81,7 +81,7 @@
                 <h2>${masVendido.nombre}</h2>
                 <p>${masVendido.precio}</p>
                 
-                <img src="<%= request.getContextPath()%>/IMG/productos/${categoria.imagen}" alt="">
+                <img src="<%= request.getContextPath()%>/IMG/productos/${masVendido.imagen}.jpg" alt="Mas vendido">
             </div>
         </div>
 

@@ -35,7 +35,10 @@ public class ControladorCategoria extends HttpServlet {
         MySQLProductosDAO bbdd = new MySQLProductosDAO();
         productos = bbdd.getProductosCategoria(idCategoria);
         
-        request.setAttribute("productosCategoria", productos);
+        if (!productos.isEmpty()) {
+            request.setAttribute("productosCategoria", productos);
+        }
+        
         
         request.getRequestDispatcher("/JSP/Categoria.jsp").forward(request, response);
     }
