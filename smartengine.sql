@@ -1,4 +1,6 @@
 CREATE DATABASE  IF NOT EXISTS `smartengine` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci */;
+create user if not exists 'smartengine'@'localhost' identified by 'smartengine';
+GRANT ALL PRIVILEGES ON  smartengine.*  TO 'smartengine'@'localhost';
 USE `smartengine`;
 -- MySQL dump 10.13  Distrib 8.0.27, for Win64 (x86_64)
 --
