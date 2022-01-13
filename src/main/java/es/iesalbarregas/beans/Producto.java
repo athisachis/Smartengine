@@ -1,5 +1,6 @@
 package es.iesalbarregas.beans;
 
+import es.iesalbarregas.beans.*;
 import java.io.Serializable;
 
 /**

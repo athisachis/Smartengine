@@ -1,6 +1,5 @@
 package es.iesalbarregas.DAO;
 
-import es.iesalbarregas.beans.Categoria;
 import es.iesalbarregas.beans.Producto;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -50,13 +49,12 @@ public class MySQLProductosDAO implements IProductosDAO {
     }
 
     @Override
-    public ArrayList<Producto> getProductosCategoria(Categoria categoria) {
+    public ArrayList<Producto> getProductosCategoria(int idCategoria) {
 
         ArrayList<Producto> productos = new ArrayList();
 
         String consulta = "select * from productos where IdCategoria=?; ";
 
-        int idCategoria = categoria.getIdCategoria();
 
         try {
 

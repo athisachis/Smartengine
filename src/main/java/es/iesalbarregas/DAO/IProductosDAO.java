@@ -21,7 +21,7 @@ public interface IProductosDAO {
      * @param categoria
      * @return todos los artículos de la bbdd que tengan esa categoria
      */
-    public ArrayList<Producto> getProductosCategoria(Categoria categoria);
+    public ArrayList<Producto> getProductosCategoria(int idCategoria);
     
     /**
      *

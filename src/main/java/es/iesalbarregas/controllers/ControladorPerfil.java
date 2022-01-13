@@ -110,7 +110,7 @@ public class ControladorPerfil extends HttpServlet {
 
                 if (!esteCampo.getFieldName().equals("boton")) {
 
-                    map.put(esteCampo.getFieldName(), esteCampo.getString());
+                    map.put(esteCampo.getFieldName(), esteCampo.getString("UTF-8"));
                 }
 
             }

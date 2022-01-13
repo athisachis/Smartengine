@@ -104,7 +104,7 @@
                     </div>
                 </c:forEach>   
                 
-                <form method="post" id="formCategoria" action="../ControladorCategoria">
+                <form method="post" id="formCategoria" action="<%= request.getContextPath()%>/ControladorCategoria">
 
                   <input type="text" name="categoria" id="categoriaElegida" value="">
 
