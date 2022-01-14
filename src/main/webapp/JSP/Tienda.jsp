@@ -81,7 +81,10 @@
                 <h2>${masVendido.nombre}</h2>
                 <p>${masVendido.precio}</p>
                 
-                <img src="<%= request.getContextPath()%>/IMG/productos/${masVendido.imagen}.jpg" alt="Mas vendido">
+                <div class="embed-responsive embed-responsive-4by3">
+                    <img src="<%= request.getContextPath()%>/IMG/productos/${masVendido.imagen}.jpg" alt="Mas vendido" class="embed-responsive-item">
+                </div>
+                
             </div>
         </div>
 
@@ -95,7 +98,10 @@
 
                     <div class="col-md-4 col-sm-6">
                         <div class="card text-center" style="width: 18rem;" id="${categoria.idCategoria}">
-                            <img class="card-img-top" src="<%= request.getContextPath()%>/IMG/categorias/${categoria.imagen}" alt="Imagen categoria">
+                            <div class="embed-responsive embed-responsive-4by3">
+                                <img class="card-img-top embed-responsive-item" src="<%= request.getContextPath()%>/IMG/categorias/${categoria.imagen}" alt="Imagen categoria">
+                            </div>
+                            
                             <div class="card-body">
                                 <p class="card-text"> ${categoria.nombre} </p>
                             </div>

@@ -15,7 +15,7 @@ public abstract class DAOFactory {
     
     public static final int MYSQL = 1;
     
-    public abstract IUsuariosDAO getUsuarioEmail(String email);
+    public abstract IUsuariosDAO getUsuarioEmail(String email, String contrasenia);
     
     public abstract IUsuariosDAO comprobarEmail(String email);
     
@@ -24,6 +24,8 @@ public abstract class DAOFactory {
     public abstract IUsuariosDAO ultimoIdUsuario();
     
     public abstract IUsuariosDAO updateUsuario(Usuario usuario);
+    
+    public abstract IUsuariosDAO updateAvatar(int idUsuario, String avatar);
     
     public abstract IProductosDAO getProductos();
     

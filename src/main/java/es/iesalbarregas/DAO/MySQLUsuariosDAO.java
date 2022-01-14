@@ -25,16 +25,17 @@ public class MySQLUsuariosDAO implements IUsuariosDAO{
     
     @Override
 
-    public Usuario getUsuarioEmail(String mail){
+    public Usuario getUsuarioEmail(String mail, String contrasenia){
         
         Usuario usuarioBBDD = new Usuario();
         
-        String consulta = "select * from usuarios where email=?; ";
+        String consulta = "select * from usuarios where email=? AND password=md5(?); ";
         
         try {
             
             PreparedStatement preparada = ConnectionFactory.abrirConexion().prepareStatement(consulta);
             preparada.setString(1, mail);
+            preparada.setString(2, contrasenia);
             
             ResultSet resultado = preparada.executeQuery();
             
@@ -116,7 +117,7 @@ public class MySQLUsuariosDAO implements IUsuariosDAO{
         boolean check=false;        
         
      
-        String consulta = "insert into usuarios(email, password, nombre, apellidos, nif, telefono, direccion, codigoPostal, localidad, provincia, avatar) values (?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?); ";
+        String consulta = "insert into usuarios(email, password, nombre, apellidos, nif, telefono, direccion, codigoPostal, localidad, provincia, ultimoAcceso) values(?, md5(?), ?, ?, ?, ?, ?, ?, ?, ?, now())";
         
         try {
             
@@ -135,7 +136,7 @@ public class MySQLUsuariosDAO implements IUsuariosDAO{
             
             String avatar;
             if (usuario.getAvatar()==null) {
-                avatar="default.jpg";
+                avatar="default.png";
             }else{
                 avatar=usuario.getAvatar();
             }
@@ -245,6 +246,45 @@ public class MySQLUsuariosDAO implements IUsuariosDAO{
         }                
         
         return check;
+        
+    }
+    
+    /**
+     *
+     * @param idUsuario
+     * @param avatar
+     */
+    @Override
+   public void updateAvatar(int idUsuario, String avatar){
+        
+        boolean check = false;
+        
+        String consulta = "update usuarios SET avatar=? WHERE idUsuario=?;";
+
+        
+        try {
+            
+            PreparedStatement preparada = ConnectionFactory.abrirConexion().prepareStatement(consulta);
+            
+            preparada.setString(1, avatar);
+            preparada.setInt(2, idUsuario);
+            
+            
+            preparada.executeUpdate();            
+                
+            preparada.close();
+            
+
+            check=true;
+            
+        } catch (SQLException e) {
+            System.out.println("Problema con la base de datos");
+            
+        }finally{
+            this.closeConnection();
+            
+        }                
+        
         
     }
     

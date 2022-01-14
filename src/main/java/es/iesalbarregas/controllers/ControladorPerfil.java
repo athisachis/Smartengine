@@ -174,8 +174,6 @@ public class ControladorPerfil extends HttpServlet {
         try {
             BeanUtils.populate(usuario, map);
             
-            Date ultimoAcceso = Calendar.getInstance().getTime();
-            usuario.setUltimoAcceso(ultimoAcceso);
             if (!map.get("avatar").equals("")) {
                 usuario.setAvatar(nombreArchivo);
             }else{

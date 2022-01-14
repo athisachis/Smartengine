@@ -21,7 +21,7 @@ public class MySQLDAOFactory extends DAOFactory{
      * @return usuario de la bbdd con ese email
      */
     @Override
-    public IUsuariosDAO getUsuarioEmail(String email) {
+    public IUsuariosDAO getUsuarioEmail(String email, String contrasenia) {
         return new MySQLUsuariosDAO();
     }
 
@@ -60,6 +60,11 @@ public class MySQLDAOFactory extends DAOFactory{
      */
     @Override
     public IUsuariosDAO updateUsuario(Usuario usuario) {
+        return new MySQLUsuariosDAO();
+    }
+    
+    @Override
+    public IUsuariosDAO updateAvatar(int idUsuario, String avatar) {
         return new MySQLUsuariosDAO();
     }
     

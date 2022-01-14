@@ -11,9 +11,10 @@ public interface IUsuariosDAO {
     /**
      *
      * @param email
+     * @param contrasenia
      * @return Usuario de la base de datos con ese email
      */
-    public Usuario getUsuarioEmail(String email);
+    public Usuario getUsuarioEmail(String email, String contrasenia);
     
     /**
      *
@@ -37,6 +38,13 @@ public interface IUsuariosDAO {
     public int ultimoIdUsuario();
     
     public boolean updateUsuario(Usuario usuario);
+    
+    /**
+     *
+     * @param idUsuario
+     * @param avatar
+     */
+    public void updateAvatar(int idUsuario, String avatar);
     
     /**
      * cierra la conexion

@@ -97,7 +97,10 @@
 
                         <div class="col-md-4 col-sm-6">
                             <div class="card text-center" style="width: 18rem;" id="${producto.idProducto}">
-                                <img class="card-img-top" src="<%= request.getContextPath()%>/IMG/productos/${producto.imagen}.jpg" alt="Imagen categoria">
+                                <div class="embed-responsive embed-responsive-1by1">
+                                    <img class="card-img-top embed-responsive-item" src="<%= request.getContextPath()%>/IMG/productos/${producto.imagen}.jpg" alt="Imagen categoria">
+                                </div>
+                                
                                 <div class="card-body">
                                     <p class="card-text"> ${producto.nombre} </p>
                                 </div>

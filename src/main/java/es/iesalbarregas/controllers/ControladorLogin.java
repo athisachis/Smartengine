@@ -12,8 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Ana
- * Controlador que comprueba si el email introducido existe en la base de datos y coincide con la contraseña que se ha introducido, también dirige el fujo de la aplicación para, en caso de que las credenciales sean válidas, llevar al usuario hasta la tienda
+ * @author Ana Controlador que comprueba si el email introducido existe en la
+ * base de datos y coincide con la contraseña que se ha introducido, también
+ * dirige el fujo de la aplicación para, en caso de que las credenciales sean
+ * válidas, llevar al usuario hasta la tienda
  */
 @WebServlet(name = "ControladorLogin", urlPatterns = {"/ControladorLogin"})
 public class ControladorLogin extends HttpServlet {
@@ -38,30 +40,39 @@ public class ControladorLogin extends HttpServlet {
 
         Usuario usuarioBBDD = new Usuario();
 
-        usuarioBBDD = udao.getUsuarioEmail(request.getParameter("email"));
-        
-        String email;
-        String contrasenia;
-
+//        usuarioBBDD = udao.getUsuarioEmail(request.getParameter("email"), request.getParameter("contrasenia"));        
         if (request.getParameter("email") != null) {
 
-            email = request.getParameter("email");
-            contrasenia = request.getParameter("password");
+            String email = request.getParameter("email");
+            String contrasenia = request.getParameter("password");
 
-            if (usuarioBBDD.getEmail()!=null) {
-                if (usuarioBBDD.getEmail().equals(email)&& usuarioBBDD.getContrasenia().equals(contrasenia)) {
-                    
-                    //Se guardan en sesion los datos del usuario
-                    request.getSession().setAttribute("usuario", usuarioBBDD);
-                    request.getRequestDispatcher("JSP/Tienda.jsp").forward(request, response);                               
-                }else{
-                    
-                    String error = "Esta combinación de usuario y contraseña no existe en la base de datos";
-                    request.setAttribute("error", error);
-                    request.getRequestDispatcher("Login.jsp").forward(request, response); 
-                }
-            }            
-          
+            usuarioBBDD = udao.getUsuarioEmail(email, contrasenia);
+
+            if (usuarioBBDD.getEmail() != null) {
+
+                //Se guardan en sesion los datos del usuario
+                request.getSession().setAttribute("usuario", usuarioBBDD);
+                request.getRequestDispatcher("JSP/Tienda.jsp").forward(request, response);
+            } else {
+                String error = "Esta combinación de usuario y contraseña no existe en la base de datos";
+                request.setAttribute("error", error);
+                request.getRequestDispatcher("Login.jsp").forward(request, response);
+            }
+
+//            if (usuarioBBDD.getEmail() != null) {
+//                if (usuarioBBDD.getEmail().equals(email) && usuarioBBDD.getContrasenia().equals(contrasenia)) {
+//
+//                    //Se guardan en sesion los datos del usuario
+//                    request.getSession().setAttribute("usuario", usuarioBBDD);
+//                    request.getRequestDispatcher("JSP/Tienda.jsp").forward(request, response);
+//                } else {
+//
+//                    String error = "Esta combinación de usuario y contraseña no existe en la base de datos";
+//                    request.setAttribute("error", error);
+//                    request.getRequestDispatcher("Login.jsp").forward(request, response);
+//                }
+//            }
+
         }
 
     }

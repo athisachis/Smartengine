@@ -45,6 +45,8 @@ public class ControladorRegistro extends HttpServlet {
         String tipoArchivo = null;
         String nombreArchivo = "default.png";
 
+        boolean check = false;
+
         DAOFactory DAOFactory = null;
 
         DAOFactory = DAOFactory.getDAOFactory(1);
@@ -69,112 +71,96 @@ public class ControladorRegistro extends HttpServlet {
 
                 FileItem esteCampo = campos.next();
 
-                if (!esteCampo.getFieldName().equals("boton")) {
+                if (!esteCampo.getFieldName().equals("boton") && !esteCampo.getFieldName().equals("avatar")) {
 
                     map.put(esteCampo.getFieldName(), esteCampo.getString("UTF-8"));
                 }
 
             }
 
+            try {
+                BeanUtils.populate(usuario, map);
+
+                //Creo finalmente el usuario
+                check = udao.crearUsuario(usuario);
+
+                Usuario usuarioCreado = udao.getUsuarioEmail(usuario.getEmail(), usuario.getContrasenia());
+
+                //Volvemos a recorrer para buscar el avatar
+                Iterator<FileItem> it = parametros.iterator();
+                while (it.hasNext()) {
+
+                    FileItem elemento = it.next();
+
+                    if (!elemento.isFormField()) {
+
+                        if (elemento.getFieldName().equals("avatar")) {
+
+                            if (!elemento.getString().equals("")) {
+                                if (elemento.getContentType().equals("image/png") || elemento.getContentType().equals("image/jpeg")) {
+
+                                    int idAsignar = usuarioCreado.getIdUsuario();
+
+                                    nombreArchivo = "avatarN" + idAsignar;
+                                    String rutaAbsoluta = request.getServletContext().getRealPath("/");
+
+                                    StringBuilder ruta = new StringBuilder();
+                                    ruta.append(rutaAbsoluta).append("..").append(File.separator).append("..").append(File.separator).append("src").append(File.separator).append("main").append(File.separator).append("webapp").append(File.separator).append("IMG").append(File.separator).append("avatares");
+
+                                    //tamaño máximo de imagen que se puede subir
+                                    upload.setSizeMax(1024 * 512);
+
+                                    if (elemento.getContentType().equals("image/png")) {
+
+                                        tipoArchivo = ".png";
+
+                                    } else {
+
+                                        tipoArchivo = ".jpeg";
+
+                                    }
+
+                                    nombreArchivo += tipoArchivo;
+
+                                    //Se crea el archivo
+                                    File archivo = new File(ruta + "/" + nombreArchivo);
+
+                                    try {
+                                        //Escribo el fichero en el servidor (lo guardo)
+                                        elemento.write(archivo);
+                                    } catch (Exception ex) {
+                                        System.out.println(ex.getMessage());
+                                    }
+
+                                    usuarioCreado.setAvatar(nombreArchivo);
+
+                                    udao.updateAvatar(usuarioCreado.getIdUsuario(), usuarioCreado.getAvatar());
+
+                                }
+                            } 
+
+                        }
+
+                    }
+                }
+
+                if (check) {
+
+                    request.getSession().setAttribute("usuario", usuarioCreado);
+                    request.getRequestDispatcher("JSP/Tienda.jsp").forward(request, response);
+                } else {
+                    String error = "error";
+                    request.setAttribute(error, error);
+                }
+
+            } catch (IllegalAccessException ex) {
+                Logger.getLogger(ControladorRegistro.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (InvocationTargetException ex) {
+                Logger.getLogger(ControladorRegistro.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
         } catch (FileUploadException ex) {
             Logger.getLogger(ControladorRegistro.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        if (!map.get("avatar").equals("")) {
-
-            int idAsignar = udao.ultimoIdUsuario() + 1;
-
-            nombreArchivo = "avatarN" + idAsignar;
-            String rutaAbsoluta = request.getServletContext().getRealPath("/");
-
-            StringBuilder ruta = new StringBuilder();
-            ruta.append(rutaAbsoluta).append("..").append(File.separator).append("..").append(File.separator).append("src").append(File.separator).append("main").append(File.separator).append("webapp").append(File.separator).append("IMG").append(File.separator).append("avatares");
-
-            //tamaño máximo de imagen que se puede subir
-            upload.setSizeMax(1024 * 512);
-
-            Iterator<FileItem> it = parametros.iterator();
-            while (it.hasNext()) {
-                
-                FileItem elemento = it.next();
-                
-                if (!elemento.isFormField()) {
-                    
-                    if (elemento.getContentType().equals("image/png") || elemento.getContentType().equals("image/jpeg")) {
-                        
-                        if (elemento.getContentType().equals("image/png")) {
-                            
-                            tipoArchivo = ".png";
-                            
-                        } else {
-                            
-                            tipoArchivo = ".jpeg";
-                            
-                        }
-
-                        nombreArchivo += tipoArchivo;
-                        
-                        //Se crea el archivo
-                        File archivo = new File(ruta + "/" + nombreArchivo);
-                        
-                        try {
-                            //Escribo el fichero en el servidor (lo guardo)
-                            elemento.write(archivo);
-                        } catch (Exception ex) {
-                            System.out.println(ex.getMessage());
-                        }
-                        
-                    }
-                    
-                }
-            }
-            
-        }
-
-        try {
-            BeanUtils.populate(usuario, map);
-            
-            Date ultimoAcceso = Calendar.getInstance().getTime();
-            usuario.setUltimoAcceso(ultimoAcceso);
-            if (!map.get("avatar").equals("")) {
-                usuario.setAvatar(nombreArchivo);
-            }
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(ControladorRegistro.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InvocationTargetException ex) {
-            Logger.getLogger(ControladorRegistro.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        //Creo finalmente el usuario
-        boolean check;
-        
-        
-        check = udao.crearUsuario(usuario);
-        
-        Usuario usuarioCreado = udao.getUsuarioEmail(usuario.getEmail());
-        
-        //Para que el id se ponga correctamente con el nombre de usuario
-        if (!map.get("avatar").equals("")) {
-            
-                int idUsuario = usuarioCreado.getIdUsuario();
-                nombreArchivo="avatarN"+idUsuario+tipoArchivo;
-                
-                usuarioCreado.setAvatar(nombreArchivo);
-                
-                check = udao.updateUsuario(usuarioCreado);
-            }
-       
-        
-        
-        
-
-        if (check) {
-
-            request.getSession().setAttribute("usuario", usuarioCreado);
-            request.getRequestDispatcher("JSP/Tienda.jsp").forward(request, response);
-        } else {
-            String error = "error";
-            request.setAttribute(error, error);
         }
 
     }

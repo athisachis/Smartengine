@@ -1,4 +1,4 @@
-package es.iesalbarregas.ajax;
+package es.iesalbarregas.controllers;
 
 import es.iesalbarregas.DAO.MySQLUsuariosDAO;
 import java.io.IOException;

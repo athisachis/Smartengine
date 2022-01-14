@@ -60,10 +60,10 @@
                                 
                                 <c:set var="contrasenia" value='${sessionScope.usuario.contrasenia}' />
                                 
-                                <input type="password" class="form-control inputRegistro" placeholder="Contraseña" name="contrasenia" id="contrasenia" maxlength="30" value="${contrasenia}" required/>
+                                <input type="password" class="form-control inputRegistro" placeholder="Contraseña" name="contrasenia" id="contrasenia" maxlength="30" value="" required/>
                             </div>
                             <div class="form-group" id="contrasena-group">
-                                <input type="password" class="form-control inputRegistro" placeholder=" Repetir contraseña" name="contrasenia2" id="contrasenia2" maxlength="30" value="${contrasenia}" required/>
+                                <input type="password" class="form-control inputRegistro" placeholder=" Repetir contraseña" name="contrasenia2" id="contrasenia2" maxlength="30" value="" required/>
                                 <small class="error-text" id="errorContrasenia">Las contraseñas deben coincidir</small>
                             </div>
                             <div class="form-group" >

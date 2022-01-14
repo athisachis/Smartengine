@@ -53,6 +53,25 @@ body{
 #formCategoria{
     visibility: hidden;
 }
+
+.embed-responsive .card-img-top {
+    object-fit: cover;
+}
+
+
+.dropdown-menu{
+    height: 350px;
+    overflow-x:hidden; 
+    overflow-y:auto;   
+}
+
+ /* OPCION 2 */
+ /* .card-img-top{
+ width: 100%;
+height: 40vh;
+object-fit: cover; 
+}  */
+
 /* main{
     display: flex;
     flex-direction: column; 
