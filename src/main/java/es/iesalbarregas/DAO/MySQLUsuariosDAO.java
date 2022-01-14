@@ -1,6 +1,7 @@
 package es.iesalbarregas.DAO;
 
 import es.iesalbarregas.beans.Usuario;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -115,13 +116,15 @@ public class MySQLUsuariosDAO implements IUsuariosDAO{
     public boolean crearUsuario(Usuario usuario) {
         
         boolean check=false;        
-        
+        Connection conex = ConnectionFactory.abrirConexion();
      
         String consulta = "insert into usuarios(email, password, nombre, apellidos, nif, telefono, direccion, codigoPostal, localidad, provincia, ultimoAcceso) values(?, md5(?), ?, ?, ?, ?, ?, ?, ?, ?, now())";
         
         try {
             
-            PreparedStatement preparada = ConnectionFactory.abrirConexion().prepareStatement(consulta);
+            conex.setAutoCommit(false);
+            
+            PreparedStatement preparada = conex.prepareStatement(consulta);
             
             preparada.setString(1, usuario.getEmail());
             preparada.setString(2, usuario.getContrasenia());
@@ -134,25 +137,21 @@ public class MySQLUsuariosDAO implements IUsuariosDAO{
             preparada.setString(9, usuario.getLocalidad());
             preparada.setString(10, usuario.getProvincia());
             
-            String avatar;
-            if (usuario.getAvatar()==null) {
-                avatar="default.png";
-            }else{
-                avatar=usuario.getAvatar();
-            }
-            
-            preparada.setString(11, avatar);
             
             preparada.execute();            
                 
             preparada.close();
             
-
+            conex.commit();
             check=true;
             
         } catch (SQLException e) {
             System.out.println("Problema con la base de datos");
-            
+            try {
+                conex.rollback();
+            } catch (SQLException ex) {
+                Logger.getLogger(MySQLUsuariosDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }finally{
             this.closeConnection();
             
@@ -200,12 +199,13 @@ public class MySQLUsuariosDAO implements IUsuariosDAO{
         
         boolean check = false;
         
-        String consulta = "update usuarios SET email=?, password=?, nombre=?, apellidos=?, nif=?, telefono=?, direccion=?, codigoPostal=?, localidad=?, provincia=?, avatar=? WHERE idUsuario=?;";
+        String consulta = "update usuarios SET email=?, password=md5(?), nombre=?, apellidos=?, nif=?, telefono=?, direccion=?, codigoPostal=?, localidad=?, provincia=?, avatar=? WHERE idUsuario=?;";
 
+        Connection conex = ConnectionFactory.abrirConexion();
         
         try {
-            
-            PreparedStatement preparada = ConnectionFactory.abrirConexion().prepareStatement(consulta);
+            conex.setAutoCommit(false);
+            PreparedStatement preparada = conex.prepareStatement(consulta);
             
             preparada.setString(1, usuario.getEmail());
             preparada.setString(2, usuario.getContrasenia());
@@ -234,12 +234,16 @@ public class MySQLUsuariosDAO implements IUsuariosDAO{
                 
             preparada.close();
             
-
+            conex.commit();
             check=true;
             
         } catch (SQLException e) {
             System.out.println("Problema con la base de datos");
-            
+            try {
+                conex.rollback();
+            } catch (SQLException ex) {
+                Logger.getLogger(MySQLUsuariosDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }finally{
             this.closeConnection();
             
@@ -260,11 +264,12 @@ public class MySQLUsuariosDAO implements IUsuariosDAO{
         boolean check = false;
         
         String consulta = "update usuarios SET avatar=? WHERE idUsuario=?;";
-
+        Connection conex = ConnectionFactory.abrirConexion();
         
         try {
             
-            PreparedStatement preparada = ConnectionFactory.abrirConexion().prepareStatement(consulta);
+            conex.setAutoCommit(false);
+            PreparedStatement preparada = conex.prepareStatement(consulta);
             
             preparada.setString(1, avatar);
             preparada.setInt(2, idUsuario);
@@ -274,12 +279,16 @@ public class MySQLUsuariosDAO implements IUsuariosDAO{
                 
             preparada.close();
             
-
+            conex.commit();
             check=true;
             
         } catch (SQLException e) {
             System.out.println("Problema con la base de datos");
-            
+            try {
+                conex.rollback();
+            } catch (SQLException ex) {
+                Logger.getLogger(MySQLUsuariosDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }finally{
             this.closeConnection();
             
@@ -288,6 +297,7 @@ public class MySQLUsuariosDAO implements IUsuariosDAO{
         
     }
     
+    @Override
     public void closeConnection() {
         ConnectionFactory.cerrarConexion();
     }
