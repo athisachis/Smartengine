@@ -27,6 +27,8 @@ public abstract class DAOFactory {
     
     public abstract IUsuariosDAO updateAvatar(int idUsuario, String avatar);
     
+    public abstract IUsuariosDAO updateUltimoAcceso(int idUsuario);
+    
     public abstract IProductosDAO getProductos();
     
     public abstract IProductosDAO getProductosCategoria(Categoria categoria);

@@ -37,6 +37,11 @@ public interface IUsuariosDAO {
      */
     public int ultimoIdUsuario();
     
+    /**
+     *
+     * @param usuario
+     * @return true si se ha hecho correctamente
+     */
     public boolean updateUsuario(Usuario usuario);
     
     /**
@@ -45,6 +50,12 @@ public interface IUsuariosDAO {
      * @param avatar
      */
     public void updateAvatar(int idUsuario, String avatar);
+ 
+    /**
+     *
+     * @param idUsuario
+     */
+    public void updateUltimoAcceso(int idUsuario);
     
     /**
      * cierra la conexion

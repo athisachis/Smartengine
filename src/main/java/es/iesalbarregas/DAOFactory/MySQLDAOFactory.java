@@ -69,6 +69,11 @@ public class MySQLDAOFactory extends DAOFactory{
     }
     
     @Override
+    public IUsuariosDAO updateUltimoAcceso(int idUsuario) {
+        return new MySQLUsuariosDAO();
+    }
+    
+    @Override
     public IProductosDAO getProductos() {
         return new MySQLProductosDAO();    
     }

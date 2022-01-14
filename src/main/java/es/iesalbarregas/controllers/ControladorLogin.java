@@ -50,6 +50,7 @@ public class ControladorLogin extends HttpServlet {
 
             if (usuarioBBDD.getEmail() != null) {
 
+                udao.updateUltimoAcceso(usuarioBBDD.getIdUsuario());
                 //Se guardan en sesion los datos del usuario
                 request.getSession().setAttribute("usuario", usuarioBBDD);
                 request.getRequestDispatcher("JSP/Tienda.jsp").forward(request, response);

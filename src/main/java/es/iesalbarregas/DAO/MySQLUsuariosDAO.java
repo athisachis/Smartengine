@@ -259,9 +259,7 @@ public class MySQLUsuariosDAO implements IUsuariosDAO{
      * @param avatar
      */
     @Override
-   public void updateAvatar(int idUsuario, String avatar){
-        
-        boolean check = false;
+   public void updateAvatar(int idUsuario, String avatar){        
         
         String consulta = "update usuarios SET avatar=? WHERE idUsuario=?;";
         Connection conex = ConnectionFactory.abrirConexion();
@@ -280,7 +278,6 @@ public class MySQLUsuariosDAO implements IUsuariosDAO{
             preparada.close();
             
             conex.commit();
-            check=true;
             
         } catch (SQLException e) {
             System.out.println("Problema con la base de datos");
@@ -296,6 +293,40 @@ public class MySQLUsuariosDAO implements IUsuariosDAO{
         
         
     }
+   
+    @Override
+   public void updateUltimoAcceso(int idUsuario){
+       
+        
+        String consulta = "update usuarios SET ultimoAcceso=now() WHERE idUsuario=?;";
+        Connection conex = ConnectionFactory.abrirConexion();
+        
+        try {
+            
+            conex.setAutoCommit(false);
+            PreparedStatement preparada = conex.prepareStatement(consulta);
+            
+            preparada.setInt(1, idUsuario);
+                        
+            preparada.executeUpdate();            
+                
+            preparada.close();
+            
+            conex.commit();
+            
+        } catch (SQLException e) {
+            System.out.println("Problema con la base de datos");
+            try {
+                conex.rollback();
+            } catch (SQLException ex) {
+                Logger.getLogger(MySQLUsuariosDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }finally{
+            this.closeConnection();
+            
+        }  
+       
+   }
     
     @Override
     public void closeConnection() {
