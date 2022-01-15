@@ -35,6 +35,8 @@ public abstract class DAOFactory {
     
     public abstract IProductosDAO getProductoMasVendido();
     
+    public abstract IProductosDAO getProductoId(int idProducto);
+    
     public abstract ICategoriasDAO getCategorias();
     
     public static DAOFactory getDAOFactory(int tipoBBDD) {

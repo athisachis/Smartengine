@@ -64,7 +64,7 @@
                         
                         <div class="col-12 forgot">
                             <a href="<%= request.getContextPath()%>/JSP/Registro.jsp">Registrarse</a> <br>
-                            <a href="<%= request.getContextPath()%>/JSP/Tienda.jsp">Acceder como usuario anónimo</a>
+                            <a href="<%= request.getContextPath()%>/ControladorEntradaAnonimo">Acceder como usuario anónimo</a>
                         </div>
     
                     </div>

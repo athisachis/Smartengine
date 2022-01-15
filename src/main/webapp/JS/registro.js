@@ -14,6 +14,7 @@ function asignarEventos() {
 
     document.getElementById('email').addEventListener('blur', AJAXCheckMail);
 
+    document.getElementById('botonRegistro').addEventListener('click', camposLlenos)
 }
 
 function comprobarCampos(e) {
@@ -34,28 +35,6 @@ function comprobarCampos(e) {
     
                 }
 
-                /*  let mailAJAX = "email="+e.target.value;
-                let yaRegistrado = AJAXCheckMail(mailAJAX);
-
-
-                console.log(yaRegistrado);
-
-                if (yaRegistrado) {
-                    
-
-                    if ((e.target.classList.contains('exito'))) {
-                        e.target.classList.remove("exito");
-                    }
-        
-                    if (!e.target.classList.contains('error')) {
-                        e.target.classList += ' error';
-                    }
-        
-        
-                    document.getElementById("errorMailExiste").style.display = "inline";
-                }else{
-                    checkMail= true;
-                }  */
 
                 document.getElementById("errorMail").style.display = "none";
     
@@ -189,7 +168,7 @@ function comprobarCampos(e) {
 
             let checkNif=false;
 
-            if (/^[0-9]{8}$/.test(e.target.value) && checkNif == false) {
+            if (/^[0-9]{8}$/.test(e.target.value)) {
                 let nif = e.target.value;
 
                 let letra = calcularDNI(nif);
@@ -382,32 +361,6 @@ function calcularDNI(dni) {
 }
 
 
-/* COMPRUEBA QUE EL EMAIL NO EXISTE YA EN LA BBDD */
-/* function AJAXCheckMail(email) {
-    
-    let request = new XMLHttpRequest();
-    let yaExiste;
-
-    request.onreadystatechange = () => {
-
-        console.log(request.readyState + '  '+ request.status);
-
-        if (request.readyState === 4 && request.status === 200) {
-            
-            yaExiste = request.responseText;
-
-            console.log(yaExiste.split(":")[1].slice(0,-1));
-
-            return yaExiste;
-        }
-    }
-
-    request.open("POST", "../AJAXRegistro", true);
-    request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    request.send(email);
-    
-} */
-
 function AJAXCheckMail() {
     
     let request = new XMLHttpRequest();
@@ -453,3 +406,30 @@ function AJAXCheckMail() {
 } 
 
 
+function camposLlenos(e){   
+
+    let rellenos = true;
+    let camposFormulario = document.querySelectorAll('.form-control');
+
+    camposFormulario.forEach(element => {
+        
+        if (element.name!="avatar"&&element.name!="telefono") {
+            
+            if (element.value=="") {
+                rellenos = false;
+
+                swal({
+                    text: "Todos los campos deben estar rellenos",
+                    icon: "error",
+                  });
+            }
+
+        }
+    });
+
+    if (!rellenos) {
+        e.preventDefault();
+
+    }
+
+}

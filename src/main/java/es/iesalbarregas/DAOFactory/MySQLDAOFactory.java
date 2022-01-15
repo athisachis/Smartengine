@@ -91,10 +91,17 @@ public class MySQLDAOFactory extends DAOFactory{
     public IProductosDAO getProductoMasVendido() {
         return new MySQLProductosDAO();
     }
+    
+    @Override
+    public IProductosDAO getProductoId(int i) {
+        return new MySQLProductosDAO();
+    }
    
     @Override
     public ICategoriasDAO getCategorias() {
         return new MySQLCategoriasDAO();
     }
+
+
     
 }

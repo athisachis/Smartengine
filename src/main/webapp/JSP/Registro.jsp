@@ -45,25 +45,25 @@
                         </div>
                         <form class="col-12"  action="../ControladorRegistro" method="post" id="user-form" enctype='multipart/form-data'>
                             <div class="form-group" id="user-group">
-                                <input type="email" class="form-control inputRegistro" placeholder="Email" name="email" id="email" maxlength="50"/>
+                                <input type="email" class="form-control inputRegistro" placeholder="Email*" name="email" id="email" maxlength="50" required/>
                                 <small class="error-text" id="errorMail">El formato del email es incorrecto</small>
                                 <small class="error-text" id="errorMailExiste">Este email ya está registrado</small>
                             </div>
                             <div class="form-group" id="contrasena-group">
-                                <input type="password" class="form-control inputRegistro" placeholder="Contraseña" name="contrasenia" id="contrasenia" maxlength="30"/>
+                                <input type="password" class="form-control inputRegistro" placeholder="Contraseña*" name="contrasenia" id="contrasenia" maxlength="30" required/>
                             </div>
                             <div class="form-group" id="contrasena-group">
-                                <input type="password" class="form-control inputRegistro" placeholder=" Repetir contraseña" name="contrasenia2" id="contrasenia2" maxlength="30"/>
+                                <input type="password" class="form-control inputRegistro" placeholder=" Repetir contraseña*" name="contrasenia2" id="contrasenia2" maxlength="30" required/>
                                 <small class="error-text" id="errorContrasenia">Las contraseñas deben coincidir</small>
                             </div>
                             <div class="form-group" >
-                                <input type="text" class="form-control inputRegistro" placeholder="Nombre" name="nombre" maxlength="20"/>
+                                <input type="text" class="form-control inputRegistro" placeholder="Nombre*" name="nombre" maxlength="20" required/>
                             </div>
                             <div class="form-group" >
-                                <input type="text" class="form-control" placeholder="Apellidos" name="apellidos" maxlength="30"/>
+                                <input type="text" class="form-control" placeholder="Apellidos*" name="apellidos" maxlength="30" required/>
                             </div>
                             <div class="form-group" >
-                                <input type="text" class="form-control" placeholder="NIF (sin letra)" name="nif" maxlength="9"/>
+                                <input type="text" class="form-control" placeholder="NIF (sin letra)*" name="nif" maxlength="9" required/>
                                 <small class="error-text" id="errorNif">Se deben introducir 8 números sin la letra</small>
                             </div>
                             <div class="form-group" >
@@ -71,17 +71,17 @@
                                 <small class="error-text" id="errorTlf">Número de teléfono no válido</small>
                             </div>
                             <div class="form-group" >
-                                <input type="text" class="form-control" placeholder="Dirección" name="direccion" maxlength="40"/>
+                                <input type="text" class="form-control" placeholder="Dirección*" name="direccion" maxlength="40" required/>
                             </div>
                             <div class="form-group" >
-                                <input type="text" class="form-control" placeholder="Código postal" name="codPostal" maxlength="30" maxlength="5"/>
+                                <input type="text" class="form-control" placeholder="Código postal*" name="codPostal" maxlength="30" maxlength="5" required/>
                                 <small class="error-text" id="errorCP">Código postal no válido</small>
                             </div>
                             <div class="form-group" >
-                                <input type="text" class="form-control" placeholder="Localidad" name="localidad" maxlength="40"/>
+                                <input type="text" class="form-control" placeholder="Localidad*" name="localidad" maxlength="40" required/>
                             </div>
                             <div class="form-group" >
-                                <input type="text" class="form-control" placeholder="Provincia" name="provincia" maxlength="30"/>
+                                <input type="text" class="form-control" placeholder="Provincia*" name="provincia" maxlength="30" required/>
                             </div>
                             <div class="form-group" >
                                 <input type="file" class="form-control" placeholder="Avatar" name="avatar" accept="image/png, image/jpeg"/>

@@ -30,6 +30,13 @@ public interface IProductosDAO {
     public Producto getProductoMasVendido();
     
     /**
+     *
+     * @param idProducto
+     * @return producto de la bbdd que tiene ese id
+     */
+    public Producto getProductoId(int idProducto);
+    
+    /**
      * cierra la conexion
      */
     public void closeConnection();  

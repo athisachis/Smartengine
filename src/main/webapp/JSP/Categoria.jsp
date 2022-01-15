@@ -1,7 +1,7 @@
 <%-- 
     Document   : Categoria
     Created on : 12-ene-2022, 12:47:40
-    Author     : error
+    Author     : Ana
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -24,8 +24,6 @@
     </head>
     <body>
         
-        <header>
-
             <c:set var="categorias" value='${applicationScope.categorias}' />
 
 
@@ -40,41 +38,6 @@
             </c:if>   
                 
 
-            
-        </header>
-
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark barraHerramientas">
-
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarsExample04">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="<%= request.getContextPath()%>/JSP/Tienda.jsp">Inicio <span class="sr-only">(current)</span></a>
-                    </li>
-
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categorías</a>
-                        <div class="dropdown-menu" aria-labelledby="dropdown04">
-
-                          <c:forEach items="${categorias}" var="categoria">
-
-                            <a class="dropdown-item"  id="${categoria.idCategoria}">${categoria.nombre}</a>
-
-                          </c:forEach>
-
-                        </div>
-                    </li>
-                </ul>
-                <form class="form-inline my-2 my-md-0">
-                    <a href="#"> <img src="<%= request.getContextPath()%>/IMG/carrito.png" alt="carrito" class=" btn btn_login botonesNavbar"></a>
-                    <a href="<%= request.getContextPath()%>/ControladorPerfil"><img src="<%= request.getContextPath()%>/IMG/user.png" alt="usuario" class="btn btn_login botonesNavbar"></a>
-                    <a href="<%= request.getContextPath()%>/ControladorCerrarSesion"><img src="<%= request.getContextPath()%>/IMG/exit.png" alt="salir" class="btn btn_login botonesNavbar"></a>
-                </form>
-            </div>
-        </nav>
                 
         <div class="container">
 
@@ -88,7 +51,7 @@
                     No hay productos de esta categor&iacute;a.
                   </div>
             </c:if>
-            <div class="card-deck">  
+            <div class="card-deck mt-5">  
                 
 
 
@@ -96,7 +59,7 @@
                       
                     <c:forEach items="${productos}" var="producto">
 
-                        <div class="col-md-4 col-sm-6">
+                        <div class="col-lg-4 col-sm-6 contenedorCard">
                             <div class="card text-center" style="width: 18rem;" id="${producto.idProducto}">
                                 <div class="embed-responsive embed-responsive-1by1">
                                     <img class="card-img-top embed-responsive-item" src="<%= request.getContextPath()%>/IMG/productos/${producto.imagen}.jpg" alt="Imagen categoria">
@@ -104,6 +67,14 @@
                                 
                                 <div class="card-body">
                                     <p class="card-text"> ${producto.nombre} </p>
+                                    <h6 class="card-subtitle mb-2 text-muted">${producto.precio}€</h6>
+                                    
+                                    <form method="post" action="<%= request.getContextPath()%>/ControladorAnadirCesta">
+
+                                        <button type="submit" class="btn btn-outline-dark" id="anadirCesta" value="${producto.idProducto}" name="botonCesta">Añadir a cesta</button>
+
+                                    </form>
+                                    
                                 </div>
                             </div>
 
@@ -129,6 +100,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         <!-- Mi script -->
-        <script src="<%= request.getContextPath()%>/JS/tienda.js"></script>
+        <script src="<%= request.getContextPath()%>/JS/categorias.js"></script>
     </body>
 </html>

@@ -45,6 +45,9 @@ body{
     margin-bottom: 10px;
     cursor: pointer;
 }
+.contenedorCard{
+    margin-bottom: 20px !important;
+}
 
 .dropdown-item{
     cursor: pointer;
@@ -64,6 +67,10 @@ body{
     overflow-x:hidden; 
     overflow-y:auto;   
 }
+
+/* .imgMasVendido{
+    height: 35vh !important;
+} */
 
  /* OPCION 2 */
  /* .card-img-top{

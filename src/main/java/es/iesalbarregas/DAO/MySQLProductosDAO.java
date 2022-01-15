@@ -55,7 +55,6 @@ public class MySQLProductosDAO implements IProductosDAO {
 
         String consulta = "select * from productos where IdCategoria=?; ";
 
-
         try {
 
             PreparedStatement preparada = ConnectionFactory.abrirConexion().prepareStatement(consulta);
@@ -124,6 +123,42 @@ public class MySQLProductosDAO implements IProductosDAO {
         }
         return masVendido;
 
+    }
+
+    @Override
+    public Producto getProductoId(int idProducto) {
+
+        Producto producto = new Producto();
+
+        String consulta = "SELECT * FROM Productos WHERE idProducto=? ; ";
+
+        try {
+            PreparedStatement preparada = ConnectionFactory.abrirConexion().prepareStatement(consulta);
+            preparada.setInt(1, idProducto);
+            try {
+                ResultSet resultado = preparada.executeQuery();
+
+                while (resultado.next()) {
+
+                    producto.setIdProducto(resultado.getInt("IdProducto"));
+                    producto.setIdCategoria(resultado.getInt("IdCategoria"));
+                    producto.setNombre(resultado.getString("Nombre"));
+                    producto.setDescripcion(resultado.getString("Descripcion"));
+                    producto.setPrecio(resultado.getDouble("Precio"));
+                    producto.setMarca(resultado.getString("Marca"));
+                    producto.setImagen(resultado.getString("Imagen"));
+
+                }
+            } catch (SQLException e) {
+                System.out.println("Error al ejecutar la sentencia");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al abrir conexion con la BBDD");
+        } finally {
+            this.closeConnection();
+        }
+
+        return producto;
     }
 
     @Override
