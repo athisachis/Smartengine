@@ -12,7 +12,7 @@
         <div class="collapse navbar-collapse" id="navbarsExample04">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Inicio <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="<%= request.getContextPath()%>/JSP/Tienda.jsp">Inicio <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Nosotros</a>
@@ -21,7 +21,7 @@
                     <a class="nav-link" href="#">Contacto</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown04" data-toggle="dropdown"
+                    <a class="nav-link dropdown-toggle"  id="dropdown04" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">Categor&iacute;as</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown04">
 

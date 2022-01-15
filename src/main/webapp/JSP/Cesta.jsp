@@ -24,6 +24,8 @@
     </head>
     <body>
 
+        <c:set var="categorias" value='${applicationScope.categorias}' />
+
         <!-- Si el usuario está registrado -->
         <c:if test="${sessionScope.usuario!=null}">
             <%@include file="../INC/headerRegistrado.inc" %>           
@@ -31,7 +33,7 @@
 
         <!-- Si el usuario no está registrado -->
         <c:if test="${sessionScope.usuario==null}">
-            <%@include file="../INC/headerAnonimo.inc" %>                
+            <%@include file="../INC/headerAnonimo.inc" %>
         </c:if>  
 
         <div class="container">
@@ -47,22 +49,22 @@
                     </h3>
 
                     <c:if test="${sessionScope.usuario!=null}">  
-                        <c:set var="usuario" value='"${sessionScope.usuario}"'/>   
-                        <h5 class="card-subtitle text-muted">${usuario.nombre} , estos son los productos que has elegido por ahora:</h5> 
+                        <c:set var="usuario" value="${sessionScope.usuario}"/>   
+                        <h5 class="card-subtitle text-muted">${usuario.nombre}, estos son los productos que has elegido por ahora:</h5> 
                     </c:if> 
 
                     <c:if test="${sessionScope.usuario==null}">
                         <h5 class="card-subtitle text-muted">Usuario an&oacute;nimo, estos son los productos que has elegido por ahora:  </h5>              
-                     </c:if>
+                    </c:if>
                 </div>
-                
+
 
                 <div class="card-body">
 
                     <ul class="list-group list-group-flush">
 
                         <li class="list-group-item">
-                        
+
                             <div class="row">
 
                                 <div class="col-3">
@@ -86,29 +88,58 @@
                                 </div>
 
                             </div>
-                            
+
                         </li>
+
+                        <c:set var="precio" value='${0}' />
                         <!-- DISEÑO TARJETAS PRODUCTO -->
 
-                        <li class="list-group-item">
-                        
-                            <div class="row">
+                        <c:set var="productosCesta" value='${sessionScope.cestaSmartengine}' />
 
-                                <div class="col-3">
-                                    <img src="" alt="" class="img-fuid">
-                                </div>
-
-                                <div class="col-2">
-                                    <p></p>
-                                </div>
-
-                            </div>
+                        <c:if test="${productosCesta!=null}">
                             
-                        </li>
-                        
+
+                            <c:forEach items="${productosCesta}" var="producto">
+
+                                <li class="list-group-item">
+
+                                    <div class="row">
+
+                                        <div class="col-3">
+                                            <img src="<%= request.getContextPath()%>/IMG/productos/${producto.imagen}.jpg" alt="imagen producto" class="img-fluid">
+                                        </div>
+
+                                        <div class="col-2">
+                                            <h5>${producto.nombre}</h5>
+                                        </div>
+
+                                        <div class="col-2">
+                                            <h5>${producto.marca}</h5>
+                                        </div>
+
+                                        <div class="col-2">
+                                            <h5>${producto.precioUnitario}€</h5>
+                                        </div>
+
+                                        <div class="col-3">
+                                            <h5>${producto.cantidad}</h5>
+                                        </div>
+
+                                        <c:set var="precio" value='${precio+producto.precioUnitario}' />
+                                        
+                                    </div>
+
+                                </li>  
+
+
+                            </c:forEach>
+                        </c:if>
+
+
+
                     </ul
 
-                   
+
 
                 </div>
 
@@ -117,7 +148,7 @@
 
                     <div class="row">
                         <div class="col-6">
-                            <h5>Importe total: </h5>
+                            <h5>Importe total: ${precio}€</h5>
                         </div>
 
                         <div class="col-6">
@@ -129,7 +160,7 @@
                                     <form method="post" action="<%= request.getContextPath()%>/ControladorFinalizarCompra">
 
                                         <button type="submit" class="btn btn-outline-success" id="finCompra" value="fin" name="finCompra">Finalizar compra</button>
-            
+
                                     </form>
                                 </div>
 
@@ -137,20 +168,34 @@
                                     <a href="<%= request.getContextPath()%>/JSP/Tienda.jsp"><button type="submit" class="btn btn-outline-info" id="volver" name="finCompra">Seguir comprando</button></a>
                                 </div>
                             </div>
-                            
 
-                            
+
+
                         </div>
-                        
+
                     </div>
-                    
+
                 </div>
 
             </div>
 
         </div>
 
+        <form method="post" id="formCategoria" action="<%= request.getContextPath()%>/ControladorCategoria">
 
+            <input type="text" name="categoria" id="categoriaElegida" value="">
+
+            <input type="submit" value="pulsarCategoria" id="botonCategoria">
+
+          </form>
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+        <script src="<%= request.getContextPath()%>/JS/categorias.js"></script>
 
     </body>
 </html>

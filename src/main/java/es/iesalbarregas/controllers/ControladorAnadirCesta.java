@@ -33,9 +33,8 @@ public class ControladorAnadirCesta extends HttpServlet {
         int idProducto = Integer.parseInt(request.getParameter("botonCesta"));
         boolean yaEsta = false;
         ArrayList<LineaCesta> cesta = new ArrayList();
-        int idCategoria = 0;
         Producto producto = new Producto();
-        
+
         MySQLProductosDAO bbdd = new MySQLProductosDAO();
 
         if (request.getSession().getAttribute("cestaSmartEngine") != null) {
@@ -49,14 +48,30 @@ public class ControladorAnadirCesta extends HttpServlet {
                     cantidad += 1;
                     lineaCesta.setCantidad(cantidad);
                     yaEsta = true;
-                    
-                    producto = bbdd.getProductoId(idProducto);
-                    idCategoria = producto.getIdCategoria();
+
                 }
 
             }
-        }
-        if (!yaEsta) {
+
+            if (!yaEsta) {
+
+                //Creo nueva linea producto y le pongo el idProducto
+                LineaCesta nuevaLinea = new LineaCesta();
+                nuevaLinea.setIdProducto(idProducto);
+
+                producto = bbdd.getProductoId(idProducto);
+
+                //Asignamos los atributos que faltan
+                nuevaLinea.setNombre(producto.getNombre());
+                nuevaLinea.setMarca(producto.getMarca());
+                nuevaLinea.setImagen(producto.getImagen());
+                nuevaLinea.setCantidad(1);
+                nuevaLinea.setPrecioUnitario(producto.getPrecio());
+
+                cesta.add(nuevaLinea);
+
+            }
+        } else {
 
             //Creo nueva linea producto y le pongo el idProducto
             LineaCesta nuevaLinea = new LineaCesta();
@@ -72,9 +87,6 @@ public class ControladorAnadirCesta extends HttpServlet {
             nuevaLinea.setPrecioUnitario(producto.getPrecio());
 
             cesta.add(nuevaLinea);
-            
-            
-            idCategoria = producto.getIdCategoria();
 
         }
 
@@ -84,7 +96,7 @@ public class ControladorAnadirCesta extends HttpServlet {
         if (request.getSession().getAttribute("usuario") == null) {
 
             //Creamos el contenido de la cookie
-            String contenidoCookie="";
+            String contenidoCookie = "";
             int idProductoLinea;
             int cantidadLinea;
 
@@ -93,7 +105,7 @@ public class ControladorAnadirCesta extends HttpServlet {
                 idProductoLinea = lineaCesta.getIdProducto();
                 cantidadLinea = lineaCesta.getCantidad();
 
-                contenidoCookie="<=>"+idProductoLinea+"#"+cantidadLinea;
+                contenidoCookie += "<=>" + idProductoLinea + "#" + cantidadLinea;
 
             }
 
@@ -105,11 +117,7 @@ public class ControladorAnadirCesta extends HttpServlet {
             response.addCookie(cookieTienda);
 
         }
-        
-       
-        
-        //Creamos atributo de peticion para redirigir a la vista de esa categoria
-        request.setAttribute("idCategoria", idCategoria);
+
         //Redirigimos a la tienda
         request.getRequestDispatcher("/JSP/Categoria.jsp").forward(request, response);
 

@@ -42,15 +42,18 @@
         <div class="container">
 
             
-            <c:set var="productos" value='${requestScope.productosCategoria}' />
+            <c:set var="productos" value='${sessionScope.categoriaElegida}' />
 
-            <c:if test="${requestScope.productosCategoria==null}">
+            <c:if test="${productos.size()==0}">
 
                 <br> <br>
                 <div class="alert alert-dark" role="alert">
                     No hay productos de esta categor&iacute;a.
                   </div>
             </c:if>
+                
+                
+            
             <div class="card-deck mt-5">  
                 
 

@@ -45,18 +45,14 @@ public class ControladorCategoria extends HttpServlet {
         if (idCategoria != 0) {
             productos = bbdd.getProductosCategoria(idCategoria);
 
-            if (!productos.isEmpty()) {
-                request.setAttribute("productosCategoria", productos);
-            }
+
         } else {
 
             productos = bbdd.getProductos();
-            if (!productos.isEmpty()) {
-                request.setAttribute("productosCategoria", productos);                  
-            }
+
         }
         
-//        request.getSession().setAttribute("categoriaElegida", productos);
+        request.getSession().setAttribute("categoriaElegida", productos);
 
         request.getRequestDispatcher("/JSP/Categoria.jsp").forward(request, response);
     }
