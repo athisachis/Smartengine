@@ -60,68 +60,31 @@
 
 
                 <c:if test="${productos!=null}">
-
-                    <c:set var="contador" value='${0}' />
                       
                     <c:forEach items="${productos}" var="producto">
 
-                        <div class="col-lg-4 col-sm-6 contenedorCard ">
+                        <div class="col-lg-4 col-sm-6 contenedorCard">
 
 
-                                <div class="card text-center " style="width: 18rem;" id="${producto.idProducto}">
-                                    <div class="embed-responsive embed-responsive-1by1 img__img">
-                                        <img class="card-img-top embed-responsive-item " src="<%= request.getContextPath()%>/IMG/productos/${producto.imagen}.jpg" alt="Imagen categoria">
-                                        <div class="img__description">
-                                            <h7 class="card-text">${producto.descripcion}</h7>
-                                        </div>
+                                <div class="card text-center" style="width: 18rem;" id="${producto.idProducto}">
+                                    <div class="embed-responsive embed-responsive-1by1">
+                                        <img class="card-img-top embed-responsive-item" src="<%= request.getContextPath()%>/IMG/productos/${producto.imagen}.jpg" alt="Imagen categoria">
                                     </div>
                                     
                                     <div class="card-body">
                                         <p class="card-text"> ${producto.nombre} </p>
                                         <h6 class="card-subtitle mb-2 text-muted">${producto.precio}€</h6>
                                         
-                                       
-                                        <form method="post" action="<%= request.getContextPath()%>/ControladorAnadirCesta">    
+                                        <form method="post" action="<%= request.getContextPath()%>/ControladorAnadirCesta">
+    
                                             <button type="submit" class="btn btn-outline-dark" id="anadirCesta" value="${producto.idProducto}" name="botonCesta">Añadir a cesta</button>
-                                              
+    
                                         </form>
                                         
-                                        <button class="btn btn-outline-dark" id="masInfo" name="botonCesta" data-toggle="modal" data-target="#exampleModalScrollable${contador}">Más información</button>
-
-
-
-                                        <div class="modal " id="exampleModalScrollable${contador}" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableLabel" aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-scrollable" role="document">
-                                              <div class="modal-content bg-dark text-light">
-                                                <div class="modal-header">
-                                                  <h5 class="modal-title text-center" id="">${producto.nombre}</h5>
-                                                  
-                                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                  </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <h5 class="text-center">${producto.marca}</h5>
-                                                    <p class="text-left">${producto.descripcion}</p>
-                                                    <h5 class="text-center">Precio: ${producto.precio}€</h5>
-                                                </div>
-                                                <div class="modal-footer">
-                                                  <button type="button" class="btn btn-outline-info" data-dismiss="modal">Cerrar</button>
-                                                  <form method="post" action="<%= request.getContextPath()%>/ControladorAnadirCesta">    
-                                                    <button type="submit" class="btn btn-outline-info" id="anadirCesta" value="${producto.idProducto}" name="botonCesta">Añadir a cesta</button>
-                                                      
-                                                </form>
-                                                </div>
-                                              </div>
-                                            </div>
-                                          </div>
                                     </div>
-
-                                    <c:set var="contador" value='${contador+1}' />
-
                                 </div>
 
-                                
+
                             
 
                         </div>

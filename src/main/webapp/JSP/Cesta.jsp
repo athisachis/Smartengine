@@ -122,10 +122,21 @@
                                         </div>
 
                                         <div class="col-3">
-                                            <h5>${producto.cantidad}</h5>
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    <button type="" class="btn btn-outline-info" id="udMenos" name="udMenos">-</button>
+                                                </div>
+                                                <div class="col-4">
+                                                    <h5>${producto.cantidad}</h5>
+                                                </div>
+                                                <div class="col-4">
+                                                    <button type="" class="btn btn-outline-info" id="udMas" name="udMas">+</button>
+                                                </div>
+                                            </div>
+                                            
                                         </div>
 
-                                        <c:set var="precio" value='${precio+producto.precioUnitario}' />
+                                        <c:set var="precio" value='${precio+producto.precioUnitario*producto.cantidad}' />
                                         
                                     </div>
 
@@ -162,10 +173,16 @@
                                         <button type="submit" class="btn btn-outline-success" id="finCompra" value="fin" name="finCompra">Finalizar compra</button>
 
                                     </form>
+
+                                    <form method="post" action="<%= request.getContextPath()%>/ControladorEliminarCesta">
+
+                                        <button type="submit" class="btn btn-outline-danger" id="eliminarCesta" value="eliminarCesta" name="eliminarCesta">Eliminar cesta</button>
+
+                                    </form>
                                 </div>
 
                                 <div class="col-6-lg col-12-sm">
-                                    <a href="<%= request.getContextPath()%>/JSP/Tienda.jsp"><button type="submit" class="btn btn-outline-info" id="volver" name="finCompra">Seguir comprando</button></a>
+                                    <a href="<%= request.getContextPath()%>/JSP/Tienda.jsp"><button type="submit" class="btn btn-outline-info" id="volver" name="volver">Seguir comprando</button></a>
                                 </div>
                             </div>
 
@@ -187,7 +204,7 @@
 
             <input type="submit" value="pulsarCategoria" id="botonCategoria">
 
-          </form>
+        </form>
 
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->

@@ -60,20 +60,6 @@ public class ControladorLogin extends HttpServlet {
                 request.getRequestDispatcher("Login.jsp").forward(request, response);
             }
 
-//            if (usuarioBBDD.getEmail() != null) {
-//                if (usuarioBBDD.getEmail().equals(email) && usuarioBBDD.getContrasenia().equals(contrasenia)) {
-//
-//                    //Se guardan en sesion los datos del usuario
-//                    request.getSession().setAttribute("usuario", usuarioBBDD);
-//                    request.getRequestDispatcher("JSP/Tienda.jsp").forward(request, response);
-//                } else {
-//
-//                    String error = "Esta combinación de usuario y contraseña no existe en la base de datos";
-//                    request.setAttribute("error", error);
-//                    request.getRequestDispatcher("Login.jsp").forward(request, response);
-//                }
-//            }
-
         }
 
     }

@@ -37,9 +37,9 @@ public class ControladorAnadirCesta extends HttpServlet {
 
         MySQLProductosDAO bbdd = new MySQLProductosDAO();
 
-        if (request.getSession().getAttribute("cestaSmartEngine") != null) {
+        if (request.getSession().getAttribute("cestaSmartengine") != null) {
 
-            cesta = (ArrayList<LineaCesta>) request.getSession().getAttribute("cestaSmartEngine");
+            cesta = (ArrayList<LineaCesta>) request.getSession().getAttribute("cestaSmartengine");
 
             for (LineaCesta lineaCesta : cesta) {
 
@@ -108,6 +108,7 @@ public class ControladorAnadirCesta extends HttpServlet {
                 contenidoCookie += "<=>" + idProductoLinea + "#" + cantidadLinea;
 
             }
+            
 
             //Para sobreescribir la cookie o crearla
             Cookie cookieTienda = new Cookie("cestaSmartengine", URLEncoder.encode(contenidoCookie, "UTF-8"));

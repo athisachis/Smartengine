@@ -91,21 +91,27 @@
             <c:forEach items="${categorias}" var="categoria">
 
                 <div class="col-lg-4 col-sm-6 contenedorCard">
-                    <div class="card text-center" style="width: 18rem;" id="${categoria.idCategoria}">
-                        <div class="embed-responsive embed-responsive-4by3">
-                            <img class="card-img-top embed-responsive-item"
-                                src="<%= request.getContextPath()%>/IMG/categorias/${categoria.imagen}"
-                                alt="Imagen categoria">
-                        </div>
 
-                        <div class="card-body">
-                            </p>
-                        </div>
+                    <div class="cara">
 
-                        <div class="card-footer">
-                            <p class="card-text"> ${categoria.nombre}
+                        <div class="card text-center" style="width: 18rem;" id="${categoria.idCategoria}">
+                            <div class="embed-responsive embed-responsive-4by3">
+                                <img class="card-img-top embed-responsive-item"
+                                    src="<%= request.getContextPath()%>/IMG/categorias/${categoria.imagen}"
+                                    alt="Imagen categoria">
+                            </div>
+    
+                            <div class="card-body">
+                                </p>
+                            </div>
+    
+                            <div class="card-footer">
+                                <p class="card-text"> ${categoria.nombre}
+                            </div>
                         </div>
+                        
                     </div>
+                    
 
                 </div>
             </c:forEach>
