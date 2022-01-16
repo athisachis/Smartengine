@@ -1,6 +1,7 @@
 package es.iesalbarregas.DAOFactory;
 
 import es.iesalbarregas.DAO.ICategoriasDAO;
+import es.iesalbarregas.DAO.IPedidosDAO;
 import es.iesalbarregas.DAO.IProductosDAO;
 import es.iesalbarregas.DAO.IUsuariosDAO;
 import es.iesalbarregas.beans.Categoria;
@@ -38,6 +39,8 @@ public abstract class DAOFactory {
     public abstract IProductosDAO getProductoId(int idProducto);
     
     public abstract ICategoriasDAO getCategorias();
+    
+    public abstract IPedidosDAO getPedidos(int idUsuario);    
     
     public static DAOFactory getDAOFactory(int tipoBBDD) {
         

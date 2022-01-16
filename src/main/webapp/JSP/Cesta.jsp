@@ -124,13 +124,16 @@
                                         <div class="col-3">
                                             <div class="row">
                                                 <div class="col-4">
-                                                    <button type="" class="btn btn-outline-info" id="udMenos" name="udMenos">-</button>
+                                                    <button type="" class="btn btn-outline-info" id="udMenos" name="udMenos" value="${idProducto}">-</button>
                                                 </div>
                                                 <div class="col-4">
-                                                    <h5>${producto.cantidad}</h5>
+                                                    <h5>${producto.cantidad}</h5>                                                   
+                                                </div>
+                                                <div class="" hidden>
+                                                    ${producto.idProducto}
                                                 </div>
                                                 <div class="col-4">
-                                                    <button type="" class="btn btn-outline-info" id="udMas" name="udMas">+</button>
+                                                    <button type="" class="btn btn-outline-info" id="udMas" name="udMas" value="${idProducto}">+</button>
                                                 </div>
                                             </div>
                                             
@@ -158,36 +161,34 @@
                 <div class="card-footer">
 
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-6-md col-12-sm">
                             <h5>Importe total: ${precio}€</h5>
                         </div>
 
-                        <div class="col-6">
+                        <div class="col-6-lg col-12-sm">
 
                             <div class="row">
-
-                                <div class="col-6-lg col-12-sm">
-
+                                <div class="col-4-lg col-12-md">
                                     <form method="post" action="<%= request.getContextPath()%>/ControladorFinalizarCompra">
 
                                         <button type="submit" class="btn btn-outline-success" id="finCompra" value="fin" name="finCompra">Finalizar compra</button>
 
                                     </form>
-
+                                </div>
+                                <div class="col-4-lg col-12-md">
                                     <form method="post" action="<%= request.getContextPath()%>/ControladorEliminarCesta">
 
                                         <button type="submit" class="btn btn-outline-danger" id="eliminarCesta" value="eliminarCesta" name="eliminarCesta">Eliminar cesta</button>
 
                                     </form>
                                 </div>
-
-                                <div class="col-6-lg col-12-sm">
-                                    <a href="<%= request.getContextPath()%>/JSP/Tienda.jsp"><button type="submit" class="btn btn-outline-info" id="volver" name="volver">Seguir comprando</button></a>
+                                <div class="col-4-lg col-12-md">
+                                    
+                                        <a href="<%= request.getContextPath()%>/JSP/Tienda.jsp"><button type="submit" class="btn btn-outline-info" id="volver" name="volver">Seguir comprando</button></a>
+                                    
                                 </div>
                             </div>
-
-
-
+       
                         </div>
 
                     </div>
@@ -213,6 +214,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
         <script src="<%= request.getContextPath()%>/JS/categorias.js"></script>
+        <script src="<%= request.getContextPath()%>/JS/AJAXcantidad.js"></script>
 
     </body>
 </html>

@@ -69,6 +69,7 @@ public class ControladorFinalizarCompra extends HttpServlet {
 
                 if (cookie != null) {
                     cookie.setMaxAge(0);
+                    response.addCookie(cookie);
                 }
 
             }
