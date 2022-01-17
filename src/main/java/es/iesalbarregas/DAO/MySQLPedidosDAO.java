@@ -53,11 +53,13 @@ public class MySQLPedidosDAO implements IPedidosDAO {
     }
 
     @Override
-    public void anadirProducto(LineaCesta producto) {
+    public int anadirProducto(LineaCesta producto) {
 
         Connection conex = ConnectionFactory.abrirConexion();
 
         String consulta = "insert into lineaspedidos (idPedido, idProducto, cantidad) values (?, ?, ?);";
+
+        int idLineaPedido = 0;
 
         try {
 
@@ -87,6 +89,29 @@ public class MySQLPedidosDAO implements IPedidosDAO {
 
         }
 
+        //SEGUNDA CONSULTA
+        String consulta2 = "SELECT MAX(idLinea) from lineaspedidos;";
+
+        try {
+            Statement sentencia = ConnectionFactory.abrirConexion().createStatement();
+            try {
+                ResultSet resultado = sentencia.executeQuery(consulta2);
+
+                while (resultado.next()) {
+
+                    idLineaPedido = resultado.getInt(1);
+                }
+            } catch (SQLException e) {
+                System.out.println("Error al ejecutar la sentencia");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al abrir conexion con la BBDD");
+        } finally {
+            this.closeConnection();
+        }
+
+        return idLineaPedido;
+
     }
 
     @Override
@@ -94,7 +119,7 @@ public class MySQLPedidosDAO implements IPedidosDAO {
 
         Connection conex = ConnectionFactory.abrirConexion();
 
-        String consulta = "insert into pedidos (idUsuario) values (?);";
+        String consulta = "insert into pedidos (idUsuario, fecha) values (? , now() );";
 
         try {
 
@@ -146,6 +171,103 @@ public class MySQLPedidosDAO implements IPedidosDAO {
         }
 
         return idPedido;
+    }
+
+    @Override
+    public void updateCantidad(int idLinea, int cantidad) {
+
+        String consulta = "update lineasPedidos SET cantidad=? WHERE idLinea=?;";
+        Connection conex = ConnectionFactory.abrirConexion();
+
+        try {
+            conex.setAutoCommit(false);
+            PreparedStatement preparada = conex.prepareStatement(consulta);
+
+            preparada.setInt(1, cantidad);
+            preparada.setInt(2, idLinea);
+
+            preparada.executeUpdate();
+
+            preparada.close();
+
+            conex.commit();
+
+        } catch (SQLException e) {
+            System.out.println("Problema con la base de datos");
+            try {
+                conex.rollback();
+            } catch (SQLException ex) {
+                Logger.getLogger(MySQLUsuariosDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } finally {
+            this.closeConnection();
+
+        }
+
+    }
+
+    @Override
+    public void eliminarPedido(int idPedido) {
+
+        String consulta = "delete from pedidos where idPedido=?;";
+        Connection conex = ConnectionFactory.abrirConexion();
+
+        try {
+            conex.setAutoCommit(false);
+            PreparedStatement preparada = conex.prepareStatement(consulta);
+
+            preparada.setInt(1, idPedido);
+
+            preparada.executeUpdate();
+
+            preparada.close();
+
+            conex.commit();
+
+        } catch (SQLException e) {
+            System.out.println("Problema con la base de datos");
+            try {
+                conex.rollback();
+            } catch (SQLException ex) {
+                Logger.getLogger(MySQLUsuariosDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } finally {
+            this.closeConnection();
+
+        }
+
+    }
+
+    @Override
+    public void finalizarPedido(int idPedido) {
+
+        String consulta = "update pedidos SET estado='f' WHERE idPedido=?;";
+        Connection conex = ConnectionFactory.abrirConexion();
+
+        try {
+            conex.setAutoCommit(false);
+            PreparedStatement preparada = conex.prepareStatement(consulta);
+
+            preparada.setInt(1, idPedido);
+
+            preparada.executeUpdate();
+
+            preparada.close();
+
+            conex.commit();
+
+        } catch (SQLException e) {
+            System.out.println("Problema con la base de datos");
+            try {
+                conex.rollback();
+            } catch (SQLException ex) {
+                Logger.getLogger(MySQLUsuariosDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } finally {
+            this.closeConnection();
+
+        }
+
     }
 
     @Override

@@ -46,6 +46,12 @@ public abstract class DAOFactory {
     
     public abstract IPedidosDAO anadirPedido(int idUsuario);
     
+    public abstract IPedidosDAO updateCantidadProducto(int lineaPedido, int idCantidad);
+    
+    public abstract IPedidosDAO eliminarPedido(int idPedido);
+    
+    public abstract IPedidosDAO finalizarPedido(int idPedido);
+    
     public static DAOFactory getDAOFactory(int tipoBBDD) {
         
         DAOFactory DAOFactory = null;

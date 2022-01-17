@@ -120,4 +120,19 @@ public class MySQLDAOFactory extends DAOFactory {
         return new MySQLPedidosDAO();
     }
 
+    @Override
+    public IPedidosDAO updateCantidadProducto(int idLineaPedido, int cantidad) {
+        return new MySQLPedidosDAO();
+    }
+
+    @Override
+    public IPedidosDAO eliminarPedido(int idPedido) {
+        return new MySQLPedidosDAO();
+    }
+
+    @Override
+    public IPedidosDAO finalizarPedido(int idPedido) {
+        return new MySQLPedidosDAO();
+    }
+
 }

@@ -1,10 +1,10 @@
 package es.iesalbarregas.controllers;
 
+import es.iesalbarregas.DAO.MySQLPedidosDAO;
 import es.iesalbarregas.DAO.MySQLProductosDAO;
 import es.iesalbarregas.beans.LineaCesta;
 import es.iesalbarregas.beans.Producto;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
@@ -32,10 +32,11 @@ public class AJAXCantidad extends HttpServlet {
             throws ServletException, IOException {
 
         ArrayList<LineaCesta> cesta = new ArrayList();
-        Producto producto = new Producto();
 
         int idProducto = Integer.parseInt(request.getParameter("idProducto"));
         int cantidad = Integer.parseInt(request.getParameter("cantidad"));
+        
+        int idLinea = 0;
 
         MySQLProductosDAO bbdd = new MySQLProductosDAO();
         cesta = (ArrayList<LineaCesta>) request.getSession().getAttribute("cestaSmartengine");
@@ -45,6 +46,8 @@ public class AJAXCantidad extends HttpServlet {
             if (lineaCesta.getIdProducto() == idProducto) {
 
                 lineaCesta.setCantidad(cantidad);
+                
+                idLinea = lineaCesta.getIdLinea();
 
             }
 
@@ -78,6 +81,9 @@ public class AJAXCantidad extends HttpServlet {
         }else{
             
             //USUARIOS REGISTRADOS
+            MySQLPedidosDAO pdao = new MySQLPedidosDAO();
+            
+            pdao.updateCantidad(idLinea, cantidad);
             
         }
 

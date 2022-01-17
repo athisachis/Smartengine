@@ -1,5 +1,6 @@
 package es.iesalbarregas.controllers;
 
+import es.iesalbarregas.DAO.MySQLPedidosDAO;
 import es.iesalbarregas.beans.LineaCesta;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -29,51 +30,69 @@ public class ControladorFinalizarCompra extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        ArrayList<LineaCesta> cesta = new ArrayList();
+        if (request.getSession().getAttribute("usuario") != null) {
 
-        if (request.getSession().getAttribute("cestaSmartengine") != null) {
-            cesta = (ArrayList<LineaCesta>) request.getSession().getAttribute("cestaSmartengine");
+            ArrayList<LineaCesta> cesta = new ArrayList();
 
-            double importeTotal = 0;
+            if (request.getSession().getAttribute("cestaSmartengine") != null) {
+                cesta = (ArrayList<LineaCesta>) request.getSession().getAttribute("cestaSmartengine");
 
-            for (LineaCesta lineaCesta : cesta) {
+                double importeTotal = 0;
 
-                importeTotal += (lineaCesta.getPrecioUnitario() * lineaCesta.getCantidad());
-            }
+                for (LineaCesta lineaCesta : cesta) {
 
-            double iva = importeTotal * 21 / 100;
-            //Redondeamos a dos decimales
-            double importeRedondeado = Math.round(importeTotal * 100.0) / 100.0;
+                    importeTotal += (lineaCesta.getPrecioUnitario() * lineaCesta.getCantidad());
+                }
 
-            //Redondeamos a dos decimales
-            double ivaRedondeado = Math.round(iva * 100.0) / 100.0;
+                double iva = importeTotal * 21 / 100;
+                //Redondeamos a dos decimales
+                double importeRedondeado = Math.round(importeTotal * 100.0) / 100.0;
 
-            request.setAttribute("importeTotal", importeRedondeado);
-            request.setAttribute("iva", ivaRedondeado);
+                //Redondeamos a dos decimales
+                double ivaRedondeado = Math.round(iva * 100.0) / 100.0;
 
-            request.getRequestDispatcher("/JSP/Factura.jsp").forward(request, response);
+                request.setAttribute("importeTotal", importeRedondeado);
+                request.setAttribute("iva", ivaRedondeado);
 
-            request.getSession().invalidate();
+                request.getSession().removeAttribute("cestaSmartengine");
 
-            //Si la la cookie existe, la eliminamos
-            Cookie cookie = null;
+                //Si la la cookie existe, la eliminamos
+                Cookie cookie = null;
 
-            Cookie[] cookies = request.getCookies();
-            if (cookies != null) {
-                for (int i = 0; i < cookies.length; i++) {
-                    if (cookies[i].getName().equals("cestaSmartengine")) {
-                        cookie = cookies[i];
-                        break;
+                Cookie[] cookies = request.getCookies();
+                if (cookies != null) {
+                    for (int i = 0; i < cookies.length; i++) {
+                        if (cookies[i].getName().equals("cestaSmartengine")) {
+                            cookie = cookies[i];
+                            break;
+                        }
                     }
+
+                    if (cookie != null) {
+                        cookie.setMaxAge(0);
+                        response.addCookie(cookie);
+                    }
+
                 }
 
-                if (cookie != null) {
-                    cookie.setMaxAge(0);
-                    response.addCookie(cookie);
-                }
+                MySQLPedidosDAO pdao = new MySQLPedidosDAO();
+
+                LineaCesta cualquiera = cesta.get(0);
+
+                int idPedido = cualquiera.getIdPedido();
+
+                pdao.finalizarPedido(idPedido);
+
+                request.getRequestDispatcher("/JSP/Factura.jsp").forward(request, response);
 
             }
+
+        } else {
+
+            request.getRequestDispatcher("/JSP/Registro.jsp").forward(request, response);
+            
         }
+
     }
 
     @Override

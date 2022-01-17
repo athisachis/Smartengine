@@ -150,8 +150,7 @@
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <!-- <script src="<%= request.getContextPath()%>/JS/ohsnap.js"></script> -->
         <!-- JS Propio -->
-        <!-- <script src="<%= request.getContextPath()%>/JS/registro.js"></script> -->
-        <script src="<%= request.getContextPath()%>/JS/registro.js"></script>
+        <script src="<%= request.getContextPath()%>/JS/modificarPerfil.js"></script>
 
     </body>   
 </html>

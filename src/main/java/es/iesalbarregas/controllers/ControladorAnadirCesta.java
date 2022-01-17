@@ -52,6 +52,15 @@ public class ControladorAnadirCesta extends HttpServlet {
                     lineaCesta.setCantidad(cantidad);
                     yaEsta = true;
 
+                    //BBDD
+                    if (request.getSession().getAttribute("usuario") != null) {
+
+                        int idLinea = lineaCesta.getIdLinea();
+                        //update cantidad                        
+                        pdao.updateCantidad(idLinea, cantidad);
+
+                    }
+
                 }
 
             }
@@ -71,8 +80,6 @@ public class ControladorAnadirCesta extends HttpServlet {
                 nuevaLinea.setCantidad(1);
                 nuevaLinea.setPrecioUnitario(producto.getPrecio());
 
-                cesta.add(nuevaLinea);
-
                 if (request.getSession().getAttribute("usuario") != null) {
 
                     LineaCesta cualquiera = cesta.get(0);
@@ -81,8 +88,15 @@ public class ControladorAnadirCesta extends HttpServlet {
 
                     nuevaLinea.setIdPedido(idPedido);
 
-                    pdao.anadirProducto(nuevaLinea);
+                    int idNuevaLinea = pdao.anadirProducto(nuevaLinea);
+
+                    nuevaLinea.setIdPedido(idPedido);
+
+                    nuevaLinea.setIdLinea(idNuevaLinea);
+
                 }
+
+                cesta.add(nuevaLinea);
 
             }
         } else {
@@ -100,20 +114,22 @@ public class ControladorAnadirCesta extends HttpServlet {
             nuevaLinea.setCantidad(1);
             nuevaLinea.setPrecioUnitario(producto.getPrecio());
 
-            cesta.add(nuevaLinea);
-
             //PARA AÑADIR A LA BBDD
             if (request.getSession().getAttribute("usuario") != null) {
 
                 Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
 
                 int idPedidoNuevo = pdao.anadirPedido(usuario.getIdUsuario());
-                
+
                 nuevaLinea.setIdPedido(idPedidoNuevo);
-                
-                pdao.anadirProducto(nuevaLinea);
+
+                int idNuevaLinea = pdao.anadirProducto(nuevaLinea);
+
+                nuevaLinea.setIdLinea(idNuevaLinea);
 
             }
+
+            cesta.add(nuevaLinea);
 
         }
 

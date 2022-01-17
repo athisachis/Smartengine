@@ -10,6 +10,12 @@ header{
     font-size: 2em;
 }
 
+footer{
+
+    background-color: #353535 !important;
+
+}
+
 .logo{
     height: 80%;
 }

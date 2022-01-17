@@ -43,7 +43,7 @@
                         <div class="col-12 user-img">
                             <img src="<%= request.getContextPath()%>/IMG/registro.png"/>
                         </div>
-                        <form class="col-12"  action="../ControladorRegistro" method="post" id="user-form" enctype='multipart/form-data'>
+                        <form class="col-12"  action="<%= request.getContextPath()%>/ControladorRegistro" method="post" id="user-form" enctype='multipart/form-data'>
                             <div class="form-group" id="user-group">
                                 <input type="email" class="form-control inputRegistro" placeholder="Email*" name="email" id="email" maxlength="50" required/>
                                 <small class="error-text" id="errorMail">El formato del email es incorrecto</small>
@@ -89,10 +89,10 @@
 
 
 
-                            <button type="submit" class="btn btn-light boton" name="boton" id="botonRegistro"><i class="fas fa-sign-in-alt"></i>  Registrarse </button>
+                            <button type="submit" class="btn btn-light boton" name="boton" id="botonRegistro"><i class="fas fa-sign-in-alt"></i>Registrarse</button>
                         </form>
                         <div class="col-12 forgot">
-                            <a href="<%= request.getContextPath()%>/Login.jsp">Volver a login</a>
+                            <a href="<%= request.getContextPath()%>/Login.jsp">Ya tengo cuenta</a>
                             
                         </div>
 

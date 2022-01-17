@@ -1,5 +1,6 @@
 package es.iesalbarregas.controllers;
 
+import es.iesalbarregas.DAO.MySQLPedidosDAO;
 import es.iesalbarregas.DAO.MySQLProductosDAO;
 import es.iesalbarregas.DAO.MySQLUsuariosDAO;
 import es.iesalbarregas.DAOFactory.DAOFactory;
@@ -150,8 +151,6 @@ public class ControladorRegistro extends HttpServlet {
 
                 if (check) {
 
-                    request.getSession().setAttribute("usuario", usuarioCreado);
-
                     //Buscamos si ya existe una cookie que contenga un carrito
                     Cookie cookie = null;
 
@@ -177,6 +176,10 @@ public class ControladorRegistro extends HttpServlet {
                             //Creamos la coleccion donde ira la cesta
                             ArrayList<LineaCesta> cesta = new ArrayList();
 
+                            //Creamos nuevo pedido
+                            MySQLPedidosDAO pdao = new MySQLPedidosDAO();
+                            int idPedido = pdao.anadirPedido(usuarioCreado.getIdUsuario());
+
                             //Recorremos el array de los objetos
                             for (String objetoCookie : objetosCookie) {
 
@@ -201,8 +204,16 @@ public class ControladorRegistro extends HttpServlet {
                                     lineaCesta.setImagen(producto.getImagen());
                                     lineaCesta.setPrecioUnitario(producto.getPrecio());
 
+                                    lineaCesta.setIdPedido(idPedido);
+
+                                    //Creamos nueva lineaPedido en la BBDD
+                                    int idLinea = pdao.anadirProducto(lineaCesta);
+
+                                    lineaCesta.setIdLinea(idLinea);
+
                                     //Añado el objeto lineaCesta al arrayList
                                     cesta.add(lineaCesta);
+
                                 }
 
                             }
@@ -212,6 +223,10 @@ public class ControladorRegistro extends HttpServlet {
 
                         }
 
+                        //Añadimos usuario a la sesión
+                        request.getSession().setAttribute("usuario", usuarioCreado);
+                        
+                        
                         request.getRequestDispatcher("JSP/Tienda.jsp").forward(request, response);
                     }
 
