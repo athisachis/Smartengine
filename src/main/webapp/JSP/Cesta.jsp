@@ -45,7 +45,7 @@
     <div class="container">
 
 
-        <div class="card text-center mt-5 18rem;">
+        <div class="card text-center mt-5">
 
 
             <div class="card-header">

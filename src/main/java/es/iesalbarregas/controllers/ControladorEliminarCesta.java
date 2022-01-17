@@ -29,45 +29,50 @@ public class ControladorEliminarCesta extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        //Usuario registrado
-        if (request.getSession().getAttribute("usuario") != null) {
+        if (request.getSession().getAttribute("cestaSmartengine") != null) {
+            //Usuario registrado
+            if (request.getSession().getAttribute("usuario") != null) {
 
-            //Para obtener el idPedido
-            ArrayList<LineaCesta> cesta = (ArrayList<LineaCesta>) request.getSession().getAttribute("cestaSmartengine");
-            
-            LineaCesta cualquiera = cesta.get(0);
-            
-            int idPedido = cualquiera.getIdPedido();
-            
-            MySQLPedidosDAO pdao = new MySQLPedidosDAO();
-            
-            pdao.eliminarPedido(idPedido);
-            
-        } else {
+                //Para obtener el idPedido
+                ArrayList<LineaCesta> cesta = (ArrayList<LineaCesta>) request.getSession().getAttribute("cestaSmartengine");
 
-            //Si la la cookie existe, la eliminamos
-            Cookie cookie = null;
+                LineaCesta cualquiera = cesta.get(0);
 
-            Cookie[] cookies = request.getCookies();
-            if (cookies != null) {
-                for (int i = 0; i < cookies.length; i++) {
-                    if (cookies[i].getName().equals("cestaSmartengine")) {
-                        cookie = cookies[i];
-                        break;
+                int idPedido = cualquiera.getIdPedido();
+
+                MySQLPedidosDAO pdao = new MySQLPedidosDAO();
+
+                pdao.eliminarPedido(idPedido);
+
+            } else {
+
+                //Si la la cookie existe, la eliminamos
+                Cookie cookie = null;
+
+                Cookie[] cookies = request.getCookies();
+                if (cookies != null) {
+                    for (int i = 0; i < cookies.length; i++) {
+                        if (cookies[i].getName().equals("cestaSmartengine")) {
+                            cookie = cookies[i];
+                            break;
+                        }
                     }
-                }
 
-                if (cookie != null) {
-                    cookie.setMaxAge(0);
-                    response.addCookie(cookie);
-                }
+                    if (cookie != null) {
+                        cookie.setMaxAge(0);
+                        response.addCookie(cookie);
+                    }
 
+                }
             }
+
+            request.getSession().removeAttribute("cestaSmartengine");
+            //Redirigimos a la tienda
+            request.getRequestDispatcher("/JSP/Tienda.jsp").forward(request, response);
+        }else{
+            request.getRequestDispatcher("/JSP/Cesta.jsp").forward(request, response);
         }
 
-        request.getSession().removeAttribute("cestaSmartengine");
-        //Redirigimos a la tienda
-        request.getRequestDispatcher("/JSP/Cesta.jsp").forward(request, response);
     }
 
     @Override

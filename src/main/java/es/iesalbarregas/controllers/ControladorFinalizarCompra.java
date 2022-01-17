@@ -30,11 +30,12 @@ public class ControladorFinalizarCompra extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        if (request.getSession().getAttribute("usuario") != null) {
+        if (request.getSession().getAttribute("cestaSmartengine") != null) {
 
-            ArrayList<LineaCesta> cesta = new ArrayList();
+            if (request.getSession().getAttribute("usuario") != null) {
 
-            if (request.getSession().getAttribute("cestaSmartengine") != null) {
+                ArrayList<LineaCesta> cesta = new ArrayList();
+
                 cesta = (ArrayList<LineaCesta>) request.getSession().getAttribute("cestaSmartengine");
 
                 double importeTotal = 0;
@@ -85,12 +86,15 @@ public class ControladorFinalizarCompra extends HttpServlet {
 
                 request.getRequestDispatcher("/JSP/Factura.jsp").forward(request, response);
 
+            } else {
+                request.getRequestDispatcher("/JSP/Registro.jsp").forward(request, response);
+                
             }
 
         } else {
 
-            request.getRequestDispatcher("/JSP/Registro.jsp").forward(request, response);
-            
+            request.getRequestDispatcher("/JSP/Cesta.jsp").forward(request, response);
+
         }
 
     }

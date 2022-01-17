@@ -32,7 +32,7 @@
     
     <body>
 
-      <%@include file="../INC/header.inc" %>
+      <%@include file="../INC/headerRegistrado.inc" %>
 
       <main>
           

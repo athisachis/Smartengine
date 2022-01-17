@@ -89,7 +89,7 @@
 
 
 
-                            <button type="submit" class="btn btn-light boton" name="boton" id="botonRegistro"><i class="fas fa-sign-in-alt"></i>Registrarse</button>
+                            <button type="submit" class="btn btn-light boton" name="boton" id="botonRegistro"><i class="fas fa-sign-in-alt"></i>  Registrarse</button>
                         </form>
                         <div class="col-12 forgot">
                             <a href="<%= request.getContextPath()%>/Login.jsp">Ya tengo cuenta</a>
