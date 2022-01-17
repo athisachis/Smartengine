@@ -39,7 +39,7 @@
 
 
     <c:set var="masVendido" value='${applicationScope.masVendido}' />
-    <div class="jumbotron jumbotron-fluid">
+    <div class="jumbotron jumbotron-fluid bg-light">
         <div class="container">
 
             <div class="row">
@@ -52,7 +52,7 @@
 
 
             <div class="row">
-                <div class="col-lg-6 col-sm-12 mt-3 d-flex align-items-center">
+                <div class="col-lg-6 col-sm-12 mt-3 d-flex align-items-center text-center">
 
                     <div>
                         <p class="text-left">
@@ -75,7 +75,7 @@
 
                 </div>
 
-                <div class="col-lg-6 col-sm-12">
+                <div class="col-lg-6 col-sm-12 align-items-center">
                     <div class="embed-responsive embed-responsive-4by3 imgMasVendido">
                         <img src="<%= request.getContextPath()%>/IMG/productos/${masVendido.imagen}.jpg"
                             alt="Mas vendido" class="embed-responsive-item">
