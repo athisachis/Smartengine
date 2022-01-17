@@ -82,10 +82,12 @@ public class ControladorEntradaAnonimo extends HttpServlet {
                 request.getSession().setAttribute("cestaSmartengine", cesta);
 
             }
-        }
+        }            
 
-        //Redirigimos a la tienda
-        request.getRequestDispatcher("/JSP/Tienda.jsp").forward(request, response);
+            //Redirigimos a la tienda
+            request.getRequestDispatcher("/JSP/Tienda.jsp").forward(request, response);
+        
+        
 
     }
 

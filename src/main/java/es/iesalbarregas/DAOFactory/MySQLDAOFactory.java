@@ -9,14 +9,15 @@ import es.iesalbarregas.DAO.MySQLPedidosDAO;
 import es.iesalbarregas.DAO.MySQLProductosDAO;
 import es.iesalbarregas.DAO.MySQLUsuariosDAO;
 import es.iesalbarregas.beans.Categoria;
+import es.iesalbarregas.beans.LineaCesta;
 import es.iesalbarregas.beans.Usuario;
 
 /**
  *
  * @author Ana
  */
-public class MySQLDAOFactory extends DAOFactory{
-    
+public class MySQLDAOFactory extends DAOFactory {
+
     /**
      *
      * @param email
@@ -36,7 +37,7 @@ public class MySQLDAOFactory extends DAOFactory{
     public IUsuariosDAO comprobarEmail(String email) {
         return new MySQLUsuariosDAO();
     }
-    
+
     /**
      *
      * @param usuario
@@ -55,7 +56,7 @@ public class MySQLDAOFactory extends DAOFactory{
     public IUsuariosDAO ultimoIdUsuario() {
         return new MySQLUsuariosDAO();
     }
-    
+
     /**
      *
      * @return true si se ha actualizado correctamente el usuario
@@ -64,27 +65,27 @@ public class MySQLDAOFactory extends DAOFactory{
     public IUsuariosDAO updateUsuario(Usuario usuario) {
         return new MySQLUsuariosDAO();
     }
-    
+
     @Override
     public IUsuariosDAO updateAvatar(int idUsuario, String avatar) {
         return new MySQLUsuariosDAO();
     }
-    
+
     @Override
     public IUsuariosDAO updateUltimoAcceso(int idUsuario) {
         return new MySQLUsuariosDAO();
     }
-    
+
     @Override
     public IProductosDAO getProductos() {
-        return new MySQLProductosDAO();    
+        return new MySQLProductosDAO();
     }
 
     @Override
     public IProductosDAO getProductosCategoria(Categoria categoria) {
         return new MySQLProductosDAO();
     }
-    
+
     /**
      *
      * @return idProducto del producto más vendido
@@ -93,12 +94,12 @@ public class MySQLDAOFactory extends DAOFactory{
     public IProductosDAO getProductoMasVendido() {
         return new MySQLProductosDAO();
     }
-    
+
     @Override
     public IProductosDAO getProductoId(int i) {
         return new MySQLProductosDAO();
     }
-   
+
     @Override
     public ICategoriasDAO getCategorias() {
         return new MySQLCategoriasDAO();
@@ -109,6 +110,14 @@ public class MySQLDAOFactory extends DAOFactory{
         return new MySQLPedidosDAO();
     }
 
+    @Override
+    public IPedidosDAO anadirProducto(LineaCesta lineapedido) {
+        return new MySQLPedidosDAO();
+    }
 
-    
+    @Override
+    public IPedidosDAO anadirPedido(int idUsuario) {
+        return new MySQLPedidosDAO();
+    }
+
 }

@@ -21,18 +21,18 @@
 
 <body>
 
-        <c:set var="categorias" value='${applicationScope.categorias}' />
+    <c:set var="categorias" value='${applicationScope.categorias}' />
 
 
-        <!-- Si el usuario está registrado -->
-        <c:if test="${sessionScope.usuario!=null}">
-            <%@include file="../INC/headerRegistrado.inc" %>
-        </c:if>
+    <!-- Si el usuario está registrado -->
+    <c:if test="${sessionScope.usuario!=null}">
+        <%@include file="../INC/headerRegistrado.inc" %>
+    </c:if>
 
-        <!-- Si el usuario no está registrado -->
-        <c:if test="${sessionScope.usuario==null}">
-            <%@include file="../INC/headerAnonimo.inc" %>
-        </c:if>
+    <!-- Si el usuario no está registrado -->
+    <c:if test="${sessionScope.usuario==null}">
+        <%@include file="../INC/headerAnonimo.inc" %>
+    </c:if>
 
 
     <c:set var="masVendido" value='${applicationScope.masVendido}' />
@@ -45,8 +45,8 @@
                     <h2>${masVendido.nombre}</h2>
                 </div>
             </div>
-            
-            
+
+
 
             <div class="row">
                 <div class="col-lg-6 col-sm-12 mt-3 d-flex align-items-center">
@@ -55,25 +55,27 @@
                         <p class="text-left">
                             ${masVendido.descripcion}
                         </p>
-    
+
                         <p>
                             <h3 class="text-center">
                                 ${masVendido.precio}€
                             </h3>
-                            
-                            <div class="text-center">
-                                <button type="button" class="btn btn-outline-dark" id="anadirCesta">Añadir a cesta</button>
-                            </div>
-                            
+
+                            <form method="post" action="<%= request.getContextPath()%>/ControladorAnadirCesta">
+    
+                                <button type="submit" class="btn btn-outline-dark" id="anadirCesta" value="${masVendido.idProducto}" name="botonCesta">Añadir a cesta</button>
+
+                            </form>
+
                         </p>
                     </div>
-                     
+
                 </div>
 
                 <div class="col-lg-6 col-sm-12">
                     <div class="embed-responsive embed-responsive-4by3 imgMasVendido">
-                    <img src="<%= request.getContextPath()%>/IMG/productos/${masVendido.imagen}.jpg"
-                        alt="Mas vendido" class="embed-responsive-item">
+                        <img src="<%= request.getContextPath()%>/IMG/productos/${masVendido.imagen}.jpg"
+                            alt="Mas vendido" class="embed-responsive-item">
                     </div>
                 </div>
             </div>
@@ -88,30 +90,46 @@
 
         <div class="card-deck">
 
+
+            <div class="col-lg-4 col-sm-6 contenedorCard">
+
+                <div class="card text-center" style="width: 18rem;" id="0">
+                    <div class="embed-responsive embed-responsive-4by3">
+                        <img class="card-img-top embed-responsive-item"
+                            src="<%= request.getContextPath()%>/IMG/categorias/default.jpg"
+                            alt="Imagen categoria">
+                    </div>
+
+                    <div class="card-body">
+                        
+                    </div>
+
+                    <div class="card-footer">
+                        <p class="card-text"> Todos </p>
+                    </div>
+                </div>
+
+            </div>
+
             <c:forEach items="${categorias}" var="categoria">
 
                 <div class="col-lg-4 col-sm-6 contenedorCard">
 
-                    <div class="cara">
-
-                        <div class="card text-center" style="width: 18rem;" id="${categoria.idCategoria}">
-                            <div class="embed-responsive embed-responsive-4by3">
-                                <img class="card-img-top embed-responsive-item"
-                                    src="<%= request.getContextPath()%>/IMG/categorias/${categoria.imagen}"
-                                    alt="Imagen categoria">
-                            </div>
-    
-                            <div class="card-body">
-                                </p>
-                            </div>
-    
-                            <div class="card-footer">
-                                <p class="card-text"> ${categoria.nombre}
-                            </div>
+                    <div class="card text-center" style="width: 18rem;" id="${categoria.idCategoria}">
+                        <div class="embed-responsive embed-responsive-4by3">
+                            <img class="card-img-top embed-responsive-item"
+                                src="<%= request.getContextPath()%>/IMG/categorias/${categoria.imagen}"
+                                alt="Imagen categoria">
                         </div>
-                        
+
+                        <div class="card-body">
+                            
+                        </div>
+
+                        <div class="card-footer">
+                            <p class="card-text"> ${categoria.nombre} </p>
+                        </div>
                     </div>
-                    
 
                 </div>
             </c:forEach>

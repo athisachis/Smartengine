@@ -1,8 +1,10 @@
 package es.iesalbarregas.controllers;
 
+import es.iesalbarregas.DAO.MySQLPedidosDAO;
 import es.iesalbarregas.DAO.MySQLProductosDAO;
 import es.iesalbarregas.beans.LineaCesta;
 import es.iesalbarregas.beans.Producto;
+import es.iesalbarregas.beans.Usuario;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -36,6 +38,7 @@ public class ControladorAnadirCesta extends HttpServlet {
         Producto producto = new Producto();
 
         MySQLProductosDAO bbdd = new MySQLProductosDAO();
+        MySQLPedidosDAO pdao = new MySQLPedidosDAO();
 
         if (request.getSession().getAttribute("cestaSmartengine") != null) {
 
@@ -70,6 +73,17 @@ public class ControladorAnadirCesta extends HttpServlet {
 
                 cesta.add(nuevaLinea);
 
+                if (request.getSession().getAttribute("usuario") != null) {
+
+                    LineaCesta cualquiera = cesta.get(0);
+
+                    int idPedido = cualquiera.getIdPedido();
+
+                    nuevaLinea.setIdPedido(idPedido);
+
+                    pdao.anadirProducto(nuevaLinea);
+                }
+
             }
         } else {
 
@@ -87,6 +101,19 @@ public class ControladorAnadirCesta extends HttpServlet {
             nuevaLinea.setPrecioUnitario(producto.getPrecio());
 
             cesta.add(nuevaLinea);
+
+            //PARA AÑADIR A LA BBDD
+            if (request.getSession().getAttribute("usuario") != null) {
+
+                Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+
+                int idPedidoNuevo = pdao.anadirPedido(usuario.getIdUsuario());
+                
+                nuevaLinea.setIdPedido(idPedidoNuevo);
+                
+                pdao.anadirProducto(nuevaLinea);
+
+            }
 
         }
 
@@ -108,7 +135,6 @@ public class ControladorAnadirCesta extends HttpServlet {
                 contenidoCookie += "<=>" + idProductoLinea + "#" + cantidadLinea;
 
             }
-            
 
             //Para sobreescribir la cookie o crearla
             Cookie cookieTienda = new Cookie("cestaSmartengine", URLEncoder.encode(contenidoCookie, "UTF-8"));
@@ -119,8 +145,13 @@ public class ControladorAnadirCesta extends HttpServlet {
 
         }
 
-        //Redirigimos a la tienda
-        request.getRequestDispatcher("/JSP/Categoria.jsp").forward(request, response);
+        if (request.getSession().getAttribute("categoriaElegida") == null) {
+            //Redirigimos a la tienda
+            request.getRequestDispatcher("/JSP/Tienda.jsp").forward(request, response);
+        } else {
+            //Redirigimos a la categoria
+            request.getRequestDispatcher("/JSP/Categoria.jsp").forward(request, response);
+        }
 
     }
 

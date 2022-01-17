@@ -5,8 +5,8 @@ import es.iesalbarregas.DAO.IPedidosDAO;
 import es.iesalbarregas.DAO.IProductosDAO;
 import es.iesalbarregas.DAO.IUsuariosDAO;
 import es.iesalbarregas.beans.Categoria;
+import es.iesalbarregas.beans.LineaCesta;
 import es.iesalbarregas.beans.Usuario;
-import java.util.ArrayList;
 
 /**
  *
@@ -40,7 +40,11 @@ public abstract class DAOFactory {
     
     public abstract ICategoriasDAO getCategorias();
     
-    public abstract IPedidosDAO getPedidos(int idUsuario);    
+    public abstract IPedidosDAO getPedidos(int idUsuario);
+
+    public abstract IPedidosDAO anadirProducto(LineaCesta lineapedido);
+    
+    public abstract IPedidosDAO anadirPedido(int idUsuario);
     
     public static DAOFactory getDAOFactory(int tipoBBDD) {
         
